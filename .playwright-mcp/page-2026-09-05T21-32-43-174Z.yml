@@ -1,0 +1,466 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "Mandrax Consulting Group Mandrax Consulting Group Driving Competitive Edge" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e5]:
+          - img "Mandrax Consulting Group" [ref=e6]
+          - generic [ref=e7]:
+            - generic [ref=e8]: Mandrax Consulting Group
+            - generic [ref=e9]: Driving Competitive Edge
+      - navigation [ref=e10]:
+        - link "Home" [ref=e12] [cursor=pointer]:
+          - /url: /
+        - link "About Us" [ref=e14] [cursor=pointer]:
+          - /url: /about.php
+        - link "Projects" [ref=e16] [cursor=pointer]:
+          - /url: /projects.php
+        - link "Opportunities" [ref=e18] [cursor=pointer]:
+          - /url: /tenders.php
+        - link "News & Media" [ref=e20] [cursor=pointer]:
+          - /url: /news.php
+        - link "Contact" [ref=e22] [cursor=pointer]:
+          - /url: /contact.php
+  - generic [ref=e23]:
+    - generic:
+      - generic [ref=e25]:
+        - generic [ref=e26]: Section 01 / Procurement
+        - heading "Tendering Intelligence for a Competitive Edge" [level=1] [ref=e27]
+        - paragraph [ref=e28]: We help organisations navigate complex procurement processes, prepare winning bids, and secure high-value contracts across East Africa.
+        - generic [ref=e29]:
+          - link "View Open Tenders" [ref=e30] [cursor=pointer]:
+            - /url: /tenders.php
+          - link "Our Services" [ref=e31] [cursor=pointer]:
+            - /url: /services.php
+      - generic [ref=e33]:
+        - generic [ref=e34]: Section 02 / Procurement
+        - heading "Trusted by Over 200 Organisations Across Kenya" [level=1] [ref=e35]
+        - paragraph [ref=e36]: From KeNHA road projects to Ministry of Health medical equipment tenders — our track record speaks through KES 15 billion in successfully procured contracts.
+        - generic [ref=e37]:
+          - link "View Projects" [ref=e38] [cursor=pointer]:
+            - /url: /projects.php
+          - link "About Us" [ref=e39] [cursor=pointer]:
+            - /url: /about.php
+      - generic [ref=e41]:
+        - generic [ref=e42]: Section 03 / Procurement
+        - heading "AGPO-Certified Procurement Support" [level=1] [ref=e43]
+        - paragraph [ref=e44]: Specialised advisory for youth, women, and persons with disabilities seeking to access the 30% government procurement set-aside under the Access to Government Procurement Opportunities programme.
+        - generic [ref=e45]:
+          - link "Learn More" [ref=e46] [cursor=pointer]:
+            - /url: /services.php
+          - link "Contact Us" [ref=e47] [cursor=pointer]:
+            - /url: /contact.php
+    - generic [ref=e50]:
+      - button "Previous" [ref=e51] [cursor=pointer]
+      - button "Next" [ref=e54] [cursor=pointer]
+    - generic [ref=e57]:
+      - button
+      - button
+      - button
+  - generic [ref=e59]:
+    - generic: "01"
+    - generic [ref=e60]: Section 01 / Who We Are
+    - generic [ref=e61]:
+      - generic [ref=e62]:
+        - heading "About Mandrax Consulting Group" [level=2] [ref=e63]
+        - paragraph [ref=e64]: Founded in 2012, Mandrax Consulting Group has grown into one of Kenya's most respected procurement and tendering advisory firms. We operate at the intersection of public policy, commercial strategy, and procurement law — helping organisations win contracts and manage supply chains with precision.
+        - paragraph [ref=e65]: Our team of CIPS-certified professionals has collectively managed over KES 15 billion in procurement processes across infrastructure, healthcare, technology, and general supplies. We work with both procuring entities and suppliers, bringing a 360-degree understanding of the procurement lifecycle.
+        - paragraph [ref=e66]: Headquartered in Upper Hill, Nairobi, with regional offices in Mombasa, Kisumu, and Nakuru, we serve clients across all 47 counties and the wider East African Community.
+        - link "Read More →" [ref=e67] [cursor=pointer]:
+          - /url: /about.php
+      - generic [ref=e69]:
+        - img "Mandrax Consulting team" [ref=e70]
+        - generic [ref=e71]:
+          - generic [ref=e72]: Established
+          - generic [ref=e73]: "2012"
+    - generic [ref=e74]:
+      - generic [ref=e75]: 450+ Tenders Won
+      - generic [ref=e76]: 12 Years Experience
+      - generic [ref=e77]: KES 15B+ Value Procured
+      - generic [ref=e78]: 200+ Clients Served
+  - generic [ref=e80]:
+    - generic [ref=e81]: Our Purpose
+    - generic [ref=e82]:
+      - generic [ref=e83]:
+        - heading "Mission" [level=3] [ref=e84]
+        - paragraph [ref=e85]: To empower organisations with professional procurement advisory services that deliver competitive advantage, ensure compliance, and maximise value in every tendering engagement across East Africa.
+      - generic [ref=e86]:
+        - heading "Vision" [level=3] [ref=e87]
+        - paragraph [ref=e88]: To be the most trusted procurement consultancy in Africa, recognised for integrity, technical excellence, and measurable impact on our clients' procurement success rates.
+      - generic [ref=e89]:
+        - heading "Core Values" [level=3] [ref=e90]
+        - paragraph [ref=e91]:
+          - strong [ref=e92]: Integrity
+          - text: — Transparent dealings in every engagement.
+          - strong [ref=e93]: Excellence
+          - text: — Precision in every document we prepare.
+          - strong [ref=e94]: Innovation
+          - text: — Leveraging technology for procurement intelligence.
+          - strong [ref=e95]: Inclusion
+          - text: — Championing AGPO and equitable procurement access.
+  - generic [ref=e97]:
+    - generic: "02"
+    - generic [ref=e98]: Section 02 / What We Do
+    - heading "Our Services" [level=2] [ref=e99]
+    - generic [ref=e100]:
+      - generic [ref=e102]:
+        - generic [ref=e103]:
+          - button "Tender Preparation & Submission Management +" [ref=e104] [cursor=pointer]:
+            - generic [ref=e105]: Tender Preparation & Submission Management
+            - generic [ref=e106]: +
+          - generic:
+            - paragraph [ref=e107]: End-to-end tender preparation from document analysis to final submission, ensuring compliance with all procurement requirements.
+            - link "Learn More →" [ref=e108] [cursor=pointer]:
+              - /url: /services.php#tender-preparation
+        - generic [ref=e109]:
+          - button "Bid Writing & Technical Proposal Development +" [ref=e110] [cursor=pointer]:
+            - generic [ref=e111]: Bid Writing & Technical Proposal Development
+            - generic [ref=e112]: +
+          - generic:
+            - paragraph [ref=e113]: Professional bid writing that articulates your capability, experience, and value proposition in language that evaluators reward.
+            - link "Learn More →" [ref=e114] [cursor=pointer]:
+              - /url: /services.php#bid-writing
+        - generic [ref=e115]:
+          - button "Procurement Process Advisory & Compliance +" [ref=e116] [cursor=pointer]:
+            - generic [ref=e117]: Procurement Process Advisory & Compliance
+            - generic [ref=e118]: +
+          - generic:
+            - paragraph [ref=e119]: Strategic guidance on procurement law, PPRA compliance, tender evaluation, and dispute resolution for both procuring entities and suppliers.
+            - link "Learn More →" [ref=e120] [cursor=pointer]:
+              - /url: /services.php#procurement-advisory
+        - generic [ref=e121]:
+          - button "Supplier Prequalification & Registration +" [ref=e122] [cursor=pointer]:
+            - generic [ref=e123]: Supplier Prequalification & Registration
+            - generic [ref=e124]: +
+          - generic:
+            - paragraph [ref=e125]: We manage your prequalification applications across government ministries, parastatals, counties, and private sector organisations.
+            - link "Learn More →" [ref=e126] [cursor=pointer]:
+              - /url: /services.php#supplier-prequalification
+        - generic [ref=e127]:
+          - button "Contract Negotiation & Management +" [ref=e128] [cursor=pointer]:
+            - generic [ref=e129]: Contract Negotiation & Management
+            - generic [ref=e130]: +
+          - generic:
+            - paragraph [ref=e131]: Expert support in contract negotiation, variation management, dispute resolution, and performance monitoring for awarded contracts.
+            - link "Learn More →" [ref=e132] [cursor=pointer]:
+              - /url: /services.php#contract-negotiation
+        - generic [ref=e133]:
+          - button "AGPO & Special Group Procurement Support +" [ref=e134] [cursor=pointer]:
+            - generic [ref=e135]: AGPO & Special Group Procurement Support
+            - generic [ref=e136]: +
+          - generic:
+            - paragraph [ref=e137]: Dedicated support for youth, women, and persons with disabilities accessing the 30% government procurement reservation under AGPO.
+            - link "Learn More →" [ref=e138] [cursor=pointer]:
+              - /url: /services.php#agpo-support
+      - img "Professional consulting services" [ref=e140]
+  - generic [ref=e142]:
+    - generic: "03"
+    - generic [ref=e143]: Section 03 / Opportunities
+    - heading "Tenders & EPC Projects" [level=2] [ref=e144]
+    - paragraph [ref=e145]: Access procurement tenders and Engineering, Procurement & Construction project opportunities. Express interest or request an NDA directly.
+    - generic [ref=e146]:
+      - link "View Tenders →" [ref=e147] [cursor=pointer]:
+        - /url: /epc.php?tab=tenders
+        - text: View Tenders
+        - generic [ref=e148]: →
+      - link "Engineering, Procurement & Construction →" [ref=e149] [cursor=pointer]:
+        - /url: /epc.php
+        - text: Engineering, Procurement & Construction
+        - generic [ref=e150]: →
+  - generic [ref=e152]:
+    - generic: "04"
+    - generic [ref=e153]: Section 04 / Our Work
+    - heading "Featured Projects" [level=2] [ref=e154]
+    - generic [ref=e155]:
+      - generic [ref=e158]:
+        - generic [ref=e159]: Healthcare
+        - heading [level=3] [ref=e160]:
+          - link "Ministry of Health Medical Equipment Supply" [ref=e161] [cursor=pointer]:
+            - /url: /project-detail.php?id=2
+        - generic [ref=e162]:
+          - generic [ref=e163]: Ministry of Health, Kenya
+          - generic [ref=e164]: KES 120,000,000
+          - generic [ref=e165]: "2022"
+      - generic [ref=e168]:
+        - generic [ref=e169]: Energy
+        - heading [level=3] [ref=e170]:
+          - link "Kenya Power Infrastructure Prequalification" [ref=e171] [cursor=pointer]:
+            - /url: /project-detail.php?id=3
+        - generic [ref=e172]:
+          - generic [ref=e173]: Kenya Power & Lighting Company
+          - generic [ref=e174]: KES 8,000,000
+          - generic [ref=e175]: Ongoing
+      - generic [ref=e178]:
+        - generic [ref=e179]: Technology
+        - heading [level=3] [ref=e180]:
+          - link "Nairobi City County ICT Procurement" [ref=e181] [cursor=pointer]:
+            - /url: /project-detail.php?id=4
+        - generic [ref=e182]:
+          - generic [ref=e183]: Nairobi City County Government
+          - generic [ref=e184]: KES 22,000,000
+          - generic [ref=e185]: "2023"
+      - generic [ref=e186]:
+        - img "KeNHA Road Survey & Bid Management" [ref=e188]
+        - generic [ref=e189]:
+          - generic [ref=e190]: Infrastructure
+          - heading [level=3] [ref=e191]:
+            - link "KeNHA Road Survey & Bid Management" [ref=e192] [cursor=pointer]:
+              - /url: /project-detail.php?id=1
+          - generic [ref=e193]:
+            - generic [ref=e194]: Kenya National Highways Authority
+            - generic [ref=e195]: KES 45,000,000
+            - generic [ref=e196]: "2023"
+  - generic [ref=e198]:
+    - generic: "05"
+    - generic [ref=e199]: Section 05 / Testimonials
+    - heading "What Our Clients Say" [level=2] [ref=e200]
+    - generic [ref=e201]:
+      - generic [ref=e202]:
+        - generic: “
+        - paragraph [ref=e203]: Mandrax Consulting transformed our approach to government tenders. Before engaging them, we had a 15% win rate. After their bid writing team reworked our technical proposals and helped us understand evaluation criteria, we won 4 out of 6 tenders in a single quarter. The KES 85 million KeNHA subcontract we secured has been a game-changer for our business.
+        - generic [ref=e215]:
+          - strong [ref=e216]: James Mwangi Kariuki
+          - text: Managing Director, Savannah Engineering Solutions Ltd
+      - generic [ref=e217]:
+        - generic: “
+        - paragraph [ref=e218]: When we needed to navigate the complex KEMSA procurement process for medical equipment supply, Mandrax was the obvious choice. Their knowledge of public health procurement regulations, technical specification development, and the IFMIS system saved us months of trial and error. Professional, thorough, and genuinely invested in our success.
+        - generic [ref=e230]:
+          - strong [ref=e231]: Dr. Wanjiku Ngugi
+          - text: Chief Executive Officer, MedEquip East Africa Ltd
+      - generic [ref=e232]:
+        - generic: “
+        - paragraph [ref=e233]: As an AGPO-registered youth enterprise, we struggled to access the 30% government procurement reservation despite being eligible. Mandrax helped us with prequalification across 12 county governments and prepared our first five tender submissions. We have since won two county supply contracts worth over KES 4 million. Their AGPO support programme is exactly what young entrepreneurs need.
+        - generic [ref=e245]:
+          - strong [ref=e246]: Ahmed Hassan Omar
+          - text: Director of Operations, Coastal Supplies & Logistics Ltd
+    - generic [ref=e247]:
+      - link "View All Reviews" [ref=e248] [cursor=pointer]:
+        - /url: /reviews.php
+      - link "Write a Review" [ref=e249] [cursor=pointer]:
+        - /url: /reviews.php#write-review
+  - generic [ref=e251]:
+    - generic: "06"
+    - generic [ref=e252]: Section 06 / Resources
+    - heading "Publications & Documents" [level=2] [ref=e253]
+    - generic [ref=e254]:
+      - button "Newsletter" [ref=e255] [cursor=pointer]
+      - button "Bulletins" [ref=e256] [cursor=pointer]
+      - button "Financial Reports" [ref=e257] [cursor=pointer]
+      - button "Research Papers" [ref=e258] [cursor=pointer]
+    - paragraph [ref=e260]: No publications available in this category yet.
+  - generic [ref=e262]:
+    - generic: "07"
+    - generic [ref=e263]: Section 07 / Gallery
+    - heading "Photo Gallery" [level=2] [ref=e264]
+    - generic [ref=e266]:
+      - generic [ref=e267] [cursor=pointer]:
+        - img "Maasai Mara game reserve" [ref=e269]
+        - generic [ref=e270]: Project 1
+      - img "People in the photo" [ref=e273] [cursor=pointer]
+      - generic [ref=e274] [cursor=pointer]:
+        - img "Maasai Mara game reserve" [ref=e276]
+        - generic [ref=e277]: Project 1
+      - img "People in the photo" [ref=e280] [cursor=pointer]
+    - generic [ref=e281]:
+      - button "Scroll left" [ref=e282] [cursor=pointer]
+      - button "Scroll right" [ref=e285] [cursor=pointer]
+  - generic [ref=e289]:
+    - generic: "08"
+    - generic [ref=e290]: Section 08 / News & Media
+    - heading "Latest News" [level=2] [ref=e291]
+    - generic [ref=e292]:
+      - article [ref=e293]:
+        - generic [ref=e295]:
+          - generic [ref=e296]: 1 March 2025
+          - heading [level=3] [ref=e297]:
+            - link "PPRA Releases Updated Guidelines for E-Procurement in County Governments" [ref=e298] [cursor=pointer]:
+              - /url: /news-detail.php?slug=ppra-e-procurement-guidelines-2025
+          - paragraph [ref=e299]: The Public Procurement Regulatory Authority has issued new directives requiring all 47 county governments to transition to electronic procurement by July 2025, marking a significant shift in how public tenders are advertised and evaluated.
+          - link "Read More →" [ref=e300] [cursor=pointer]:
+            - /url: /news-detail.php?slug=ppra-e-procurement-guidelines-2025
+      - article [ref=e301]:
+        - generic [ref=e303]:
+          - generic [ref=e304]: 15 February 2025
+          - heading [level=3] [ref=e305]:
+            - link "Mandrax Consulting Group Opens Mombasa Regional Office" [ref=e306] [cursor=pointer]:
+              - /url: /news-detail.php?slug=mombasa-office-launch-2025
+          - paragraph [ref=e307]: Expanding our footprint to the coast region, Mandrax Consulting Group has officially opened its Mombasa office to better serve clients in the coastal counties and support procurement activities around the Mombasa Port and Dongo Kundu Special Economic Zone.
+          - link "Read More →" [ref=e308] [cursor=pointer]:
+            - /url: /news-detail.php?slug=mombasa-office-launch-2025
+      - article [ref=e309]:
+        - generic [ref=e311]:
+          - generic [ref=e312]: 20 January 2025
+          - heading [level=3] [ref=e313]:
+            - 'link "Understanding the 30% AGPO Reservation: A Guide for Youth and Women Entrepreneurs" [ref=e314] [cursor=pointer]':
+              - /url: /news-detail.php?slug=agpo-guide-youth-women-2025
+          - paragraph [ref=e315]: A comprehensive breakdown of how the Access to Government Procurement Opportunities programme works, eligibility criteria, registration process, and strategies for winning your first government contract as a youth or woman-owned enterprise.
+          - link "Read More →" [ref=e316] [cursor=pointer]:
+            - /url: /news-detail.php?slug=agpo-guide-youth-women-2025
+    - link "View All News →" [ref=e318] [cursor=pointer]:
+      - /url: /news.php
+      - text: View All News
+      - generic [ref=e319]: →
+  - generic [ref=e321]:
+    - generic [ref=e322]: Engineering, Procurement & Construction
+    - heading "EPC Project Categories" [level=2] [ref=e323]
+    - generic [ref=e324]:
+      - generic [ref=e325]:
+        - heading "Oil & Gas" [level=3] [ref=e326]
+        - paragraph [ref=e327]: Upstream and downstream oil and gas infrastructure projects including pipelines, refineries, and storage facilities.
+        - link "View Projects →" [ref=e328] [cursor=pointer]:
+          - /url: /epc-category.php?slug=oil-and-gas
+          - text: View Projects
+          - generic [ref=e329]: →
+      - generic [ref=e330]:
+        - heading "Construction" [level=3] [ref=e331]
+        - paragraph [ref=e332]: Building and civil engineering projects including commercial, residential, and industrial construction.
+        - link "View Projects →" [ref=e333] [cursor=pointer]:
+          - /url: /epc-category.php?slug=construction
+          - text: View Projects
+          - generic [ref=e334]: →
+      - generic [ref=e335]:
+        - heading "Roads & Infrastructure" [level=3] [ref=e336]
+        - paragraph [ref=e337]: Road construction, bridges, highways, and urban infrastructure development projects.
+        - link "View Projects →" [ref=e338] [cursor=pointer]:
+          - /url: /epc-category.php?slug=roads-infrastructure
+          - text: View Projects
+          - generic [ref=e339]: →
+      - generic [ref=e340]:
+        - heading "Railway" [level=3] [ref=e341]
+        - paragraph [ref=e342]: Railway construction, signalling systems, and rolling stock procurement projects.
+        - link "View Projects →" [ref=e343] [cursor=pointer]:
+          - /url: /epc-category.php?slug=railway
+          - text: View Projects
+          - generic [ref=e344]: →
+  - generic [ref=e346]:
+    - generic [ref=e347]: Get In Touch
+    - heading "Contact Us" [level=2] [ref=e348]
+    - generic [ref=e349]:
+      - generic [ref=e350]:
+        - heading "Head Office" [level=3] [ref=e351]
+        - generic [ref=e352]:
+          - paragraph [ref=e353]: Mwalimu Tower, UpperhillNairobi
+          - paragraph [ref=e354]:
+            - strong [ref=e355]: "Phone:"
+            - link "+254 20 207 0001" [ref=e356] [cursor=pointer]:
+              - /url: tel:+254 20 207 0001
+          - paragraph [ref=e357]:
+            - strong [ref=e358]: "Email:"
+            - link "enquiries@mandraxconsultinggroup.co.ke" [ref=e359] [cursor=pointer]:
+              - /url: mailto:enquiries@mandraxconsultinggroup.co.ke
+        - generic [ref=e360]:
+          - heading "Office Hours" [level=4] [ref=e361]
+          - paragraph [ref=e362]: "Monday — Friday: 8:00 AM – 5:00 PMSaturday: 9:00 AM – 1:00 PMSunday: Closed"
+      - generic [ref=e364]:
+        - generic [ref=e365]:
+          - generic [ref=e366]:
+            - generic [ref=e367]: Full Name *
+            - textbox "Full Name *" [ref=e368]
+          - generic [ref=e369]:
+            - generic [ref=e370]: Email *
+            - textbox "Email *" [ref=e371]
+        - generic [ref=e372]:
+          - generic [ref=e373]:
+            - generic [ref=e374]: Company
+            - textbox "Company" [ref=e375]
+          - generic [ref=e376]:
+            - generic [ref=e377]: Phone
+            - textbox "Phone" [ref=e378]
+        - generic [ref=e379]:
+          - generic [ref=e380]:
+            - generic [ref=e381]: Subject
+            - textbox "Subject" [ref=e382]
+          - generic [ref=e383]:
+            - generic [ref=e384]: Inquiry Type
+            - combobox "Inquiry Type" [ref=e385]:
+              - option "General Inquiry" [selected]
+              - option "Tendering Services"
+              - option "Partnership"
+              - option "Media"
+              - option "Other"
+        - generic [ref=e386]:
+          - generic [ref=e387]: Message *
+          - textbox "Message *" [ref=e388]
+        - generic [ref=e389]:
+          - generic [ref=e390]:
+            - text: "Security Check: What is"
+            - strong [ref=e391]: 2 + 14
+            - text: "? *"
+          - spinbutton "Your answer" [ref=e392]
+        - button "Send Inquiry" [ref=e393] [cursor=pointer]
+  - contentinfo [ref=e394]:
+    - generic [ref=e395]:
+      - generic [ref=e396]:
+        - generic [ref=e397]:
+          - generic [ref=e399]:
+            - img "Mandrax Consulting Group" [ref=e400]
+            - generic [ref=e401]:
+              - generic [ref=e402]: Mandrax Consulting Group
+              - generic [ref=e403]: Driving Competitive Edge
+          - paragraph [ref=e404]: Tendering Intelligence for a Competitive Edge
+          - paragraph [ref=e405]: Kenya's premier procurement and tendering consultancy, delivering expert advisory services across East Africa since 2012.
+        - generic [ref=e406]:
+          - heading "Quick Links" [level=4] [ref=e407]
+          - list [ref=e408]:
+            - listitem [ref=e409]:
+              - link "About Us" [ref=e410] [cursor=pointer]:
+                - /url: /about.php
+            - listitem [ref=e411]:
+              - link "Our Services" [ref=e412] [cursor=pointer]:
+                - /url: /services.php
+            - listitem [ref=e413]:
+              - link "Projects" [ref=e414] [cursor=pointer]:
+                - /url: /projects.php
+            - listitem [ref=e415]:
+              - link "Procurement" [ref=e416] [cursor=pointer]:
+                - /url: /tenders.php
+            - listitem [ref=e417]:
+              - link "News & Media" [ref=e418] [cursor=pointer]:
+                - /url: /news.php
+            - listitem [ref=e419]:
+              - link "Careers" [ref=e420] [cursor=pointer]:
+                - /url: /careers.php
+            - listitem [ref=e421]:
+              - link "Contact Us" [ref=e422] [cursor=pointer]:
+                - /url: /contact.php
+        - generic [ref=e423]:
+          - heading "Head Office" [level=4] [ref=e424]
+          - generic [ref=e425]:
+            - paragraph [ref=e426]: Mwalimu Tower, Upperhill
+            - paragraph [ref=e427]: Nairobi
+            - paragraph [ref=e428]:
+              - link "+254 20 207 0001" [ref=e429] [cursor=pointer]:
+                - /url: tel:+254 20 207 0001
+            - paragraph [ref=e430]:
+              - link "enquiries@mandraxconsultinggroup.co.ke" [ref=e431] [cursor=pointer]:
+                - /url: mailto:enquiries@mandraxconsultinggroup.co.ke
+        - generic [ref=e432]:
+          - heading "Portals & Resources" [level=4] [ref=e433]
+          - list [ref=e434]:
+            - listitem [ref=e435]:
+              - link "Tenders" [ref=e436] [cursor=pointer]:
+                - /url: /epc.php?tab=tenders
+            - listitem [ref=e437]:
+              - link "EPC Projects" [ref=e438] [cursor=pointer]:
+                - /url: /epc.php
+            - listitem [ref=e439]:
+              - link "Staff Mail" [ref=e440] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e441]:
+              - link "Inquiries" [ref=e442] [cursor=pointer]:
+                - /url: /inquiries.php
+          - heading "Connect" [level=4] [ref=e443]
+      - generic [ref=e444]:
+        - paragraph [ref=e445]: © 2026 Mandrax Consulting Group. All rights reserved.
+        - generic [ref=e446]:
+          - generic [ref=e447]: PPRA Registered
+          - generic [ref=e448]: "|"
+          - generic [ref=e449]: ISO 9001:2015 Certified
+  - generic [ref=e451]:
+    - generic [ref=e452]:
+      - strong [ref=e453]: Cookie Notice
+      - paragraph [ref=e454]: We use cookies to improve your experience and analyse site traffic. Choose your preferences below or accept all cookies.
+    - generic [ref=e455]:
+      - button "Preferences" [ref=e456] [cursor=pointer]
+      - button "Reject All" [ref=e457] [cursor=pointer]
+      - button "Accept All" [ref=e458] [cursor=pointer]
