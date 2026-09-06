@@ -49,3 +49,6 @@ next-env.d.ts
 temp/
 .worktrees/
 .env*.local
+
+# MCP session artefacts
+.playwright-mcp/
