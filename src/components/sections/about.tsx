@@ -1,3 +1,4 @@
+import { AagLogo } from "@/components/brand/AagLogo";
 import { IconArrowRight } from "@/components/icons";
 
 interface AboutProps {
@@ -30,7 +31,11 @@ export function About({ bodyOne, bodyTwo }: AboutProps) {
       <div className="max-w-page mx-auto px-md">
         <div className="grid grid-cols-1 lg:grid-cols-12 items-start gap-2xl">
           <div className="lg:col-span-4">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-muted" />
+            <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-muted">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <AagLogo variant="mark" className="h-24 w-auto opacity-15" label="" />
+              </div>
+            </div>
           </div>
           <div className="lg:col-span-8">
             <h2 className="mb-md text-h2 font-display font-normal text-foreground">
