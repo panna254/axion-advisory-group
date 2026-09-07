@@ -37,9 +37,7 @@ export function ClusterCard({ cluster, servicesBySlug }: ClusterCardProps) {
         <div className="my-2xs h-px w-full bg-border" />
         <ul className="flex flex-col gap-sm">
           {lines.map((service) => (
-            <li key={service.slug}>
-              <PracticeLineRow service={service} />
-            </li>
+            <PracticeLineRow key={service.slug} service={service} />
           ))}
         </ul>
       </div>

@@ -45,7 +45,7 @@ export function ProofSection({
   }
 
   return (
-    <section id="proof" className="band-navy py-band-anchor">
+    <section id="proof" className="band-navy bg-background py-band-anchor">
       <div className="max-w-page mx-auto px-md">
         <h2 className="mb-xl text-center text-h2 font-display font-normal text-foreground">
           Client work

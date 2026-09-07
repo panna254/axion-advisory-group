@@ -88,7 +88,7 @@ export function SiteFooter({
   const legalLine = `© ${entityName ?? ENTITY_PLACEHOLDER} ${copyrightYear ?? YEAR_PLACEHOLDER}. All rights reserved.`;
 
   return (
-    <footer className="band-navy">
+    <footer className="band-navy bg-background">
       <div className="py-band-tight max-w-page mx-auto px-md">
         <div className="grid grid-cols-2 gap-xl lg:grid-cols-4">
           <div className="col-span-2 lg:col-span-1">
