@@ -1,0 +1,21 @@
+{
+  "name": "Axion Advisory Group",
+  "short_name": "AAG",
+  "description": "Business consultancy, financial management, and risk advisory for Kenyan firms.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F6F7FA",
+  "theme_color": "#F6F7FA",
+  "icons": [
+    {
+      "src": "/seo/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/seo/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

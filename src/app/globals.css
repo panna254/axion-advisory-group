@@ -2,43 +2,404 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+/* ---------------------------------------------------------------------------
+   Axion Advisory Group - design tokens
+   ---------------------------------------------------------------------------
+   Source of truth: BRAND.md. Where this file disagrees with BRAND.md,
+   BRAND.md wins and this file is the bug.
+
+   Every contrast figure in the comments below was re-measured from the oklch
+   values by converting oklch -> sRGB -> WCAG relative luminance. The nine
+   pairings published in BRAND.md's contrast law reproduced exactly, so the
+   derived tokens here are measured on the same basis, not estimated.
+
+   DARK MODE IS NOT A USER THEME. BRAND.md: "Paper is the default canvas. Most
+   of the site is paper. Dark bands are punctuation, not the ground state."
+   So `.dark` is a SURFACE SCOPE, not a page mode. Put it on a <section> to
+   render that section as a navy band. The <html> element stays light. The
+   alias `.band-navy` is the name to use in component code; `.dark` is kept on
+   the same rule so shadcn primitives' `dark:` variants keep working inside a
+   band. There is no system dark mode and no theme toggle, by brand decision.
+--------------------------------------------------------------------------- */
+
 @custom-variant dark (&:is(.dark *));
+
+/* ===========================================================================
+   1. RAW BRAND VALUES
+   Theme-independent constants, straight from BRAND.md's colour table.
+   Components reach for these when they need a literal brand value rather
+   than a semantic role. They never change between light and navy surfaces.
+   =========================================================================== */
+
+:root {
+  --aag-crimson: oklch(0.584 0.2228 14.96); /* #E01A4F */
+  --aag-crimson-deep: oklch(0.5022 0.1916 14.54); /* #B71340 */
+  --aag-crimson-light: oklch(0.7254 0.1506 3.6); /* #F27A9C */
+
+  --aag-cyan: oklch(0.6985 0.1327 232.37); /* #29ABE2 */
+  --aag-cyan-deep: oklch(0.5799 0.1149 234.8); /* #1B84B4 */
+  --aag-cyan-light: oklch(0.8346 0.081 227.15); /* #8FD4F2 */
+
+  --aag-navy: oklch(0.199 0.0657 270.33); /* #0B1233 */
+  --aag-navy-800: oklch(0.2499 0.086 270.57); /* #131C4A */
+  --aag-navy-700: oklch(0.305 0.09 270.6); /* #1F2A5C - derived elevation step */
+  --aag-ink: oklch(0.1568 0.0413 268.91); /* #060B1E */
+
+  --aag-paper: oklch(0.9762 0.0041 271.37); /* #F6F7FA */
+  --aag-slate: oklch(0.4953 0.0378 271.72); /* #5A6178 */
+
+  /* The one pure white on the site. BRAND.md measures white-on-crimson at
+     4.74:1, which is the only pairing that lets crimson carry a text label.
+     Paper-on-crimson measures 4.42:1 and fails AA, so the taste skill's
+     "no pure #ffffff" rule is overridden here and ONLY here. Used for
+     --primary-foreground. Never use it as a surface. */
+  --aag-white: oklch(1 0 0);
+}
+
+/* ===========================================================================
+   2. COLOUR USAGE LAW  (BRAND.md, restated where it binds token choice)
+
+   Crimson  = ACTION.  Primary CTAs, active states, current-page marker,
+                       focus ring. If it is crimson it is clickable or it is
+                       the thing you are on. Never an icon, never a chart
+                       series, never body text.
+   Cyan     = SYSTEMS. Data, icons, diagram strokes, section rules, secondary
+                       CTA outlines. Describes structure, never asks for a click.
+   Navy     = AUTHORITY. Dark bands, footer, scrolled header.
+   Paper    = CANVAS.  The ground state.
+
+   Crimson and cyan never carry equal visual weight in one component. The mark
+   is the only place they are peers. No crimson-to-cyan gradient, ever.
+   =========================================================================== */
+
+/* ---------------------------------------------------------------------------
+   2a. LIGHT SURFACE - paper canvas. The default for the whole site.
+--------------------------------------------------------------------------- */
+
+:root {
+  /* Canvas and ink */
+  --background: var(--aag-paper);
+  --foreground: var(--aag-navy); /* navy on paper 17.07:1 - any use */
+
+  /* Elevated surfaces. Card sits just above paper, not pure white. */
+  --card: oklch(0.992 0.0022 271.4); /* #FCFCFE - navy on card 17.87:1 */
+  --card-foreground: var(--aag-navy);
+  --popover: oklch(0.992 0.0022 271.4);
+  --popover-foreground: var(--aag-navy);
+
+  /* ACTION. Crimson fill, white label.
+     white on crimson 4.74:1 - passes AA at 16px and above only, so every
+     crimson button label is >=16px. Do not set a crimson button in 14px type. */
+  --primary: var(--aag-crimson);
+  --primary-foreground: var(--aag-white);
+
+  /* Crimson as TEXT on paper is forbidden: crimson measures 4.42:1 and fails
+     AA. Links and inline action text use crimson-deep at 6.16:1. */
+  --action-text: var(--aag-crimson-deep);
+
+  /* Secondary is a neutral navy-tinted fill, NOT cyan. A cyan fill would put
+     cyan and crimson at equal weight in the same button row, which BRAND.md
+     forbids. Cyan's job on a secondary CTA is the outline, see --stroke-systems. */
+  --secondary: oklch(0.918 0.011 271.5); /* #E1E4EB */
+  --secondary-foreground: var(--aag-navy); /* navy on secondary 14.33:1 */
+
+  --muted: oklch(0.943 0.0075 271.5); /* #EAECF1 */
+  --muted-foreground: var(--aag-slate); /* slate on paper 5.74:1, on muted 5.20:1 */
+
+  /* SYSTEMS. Cyan is the accent, per the brand's colour law. */
+  --accent: var(--aag-cyan);
+  --accent-foreground: var(--aag-navy); /* navy on cyan 6.98:1 */
+
+  /* Cyan as a MEANINGFUL stroke on paper measures 2.44:1 and fails the 3:1
+     floor for non-text UI (WCAG 1.4.11). Icon strokes, secondary CTA outlines
+     and any rule that carries meaning use cyan-deep at 3.92:1. Flat --accent
+     cyan is for decorative fills and dividers only, where nothing is lost if
+     the viewer cannot resolve it. */
+  --stroke-systems: var(--aag-cyan-deep);
+
+  /* Hairlines between cards and sections. Decorative, so exempt from 3:1. */
+  --border: oklch(0.888 0.013 271.5); /* #D7DAE3 - 1.31:1 vs paper */
+
+  /* Form field boundary. This one IS load-bearing: it is the only thing
+     showing the input's extent, so it must clear 3:1 (WCAG 1.4.11).
+     Measured 3.41:1 vs paper and 3.57:1 vs card. Do not lighten it. */
+  --input: oklch(0.62 0.03 271.5); /* #7F8699 */
+
+  /* Focus ring is crimson: focus is an action state. 4.42:1 vs paper, well
+     clear of the 3:1 floor for a focus indicator. */
+  --ring: var(--aag-crimson);
+
+  /* The brand's action colour is already red, so an error cannot be signalled
+     by hue alone here. Destructive uses crimson-deep (6.16:1, legible as text)
+     and every error is additionally carried by a WarningCircle icon and inline
+     placement below the field. Never rely on the colour by itself. */
+  --destructive: var(--aag-crimson-deep);
+
+  /* Data series. Cyan leads because cyan is the systems and data colour.
+     Crimson is deliberately absent: a crimson series would read as clickable. */
+  --chart-1: var(--aag-cyan-deep);
+  --chart-2: var(--aag-cyan);
+  --chart-3: var(--aag-cyan-light);
+  --chart-4: var(--aag-navy-800);
+  --chart-5: var(--aag-slate);
+
+  /* Logo. Shields are always crimson and cyan. Only the type flips, because
+     BRAND.md's identity colours (cyan wordmark, crimson lockup) are specified
+     against the navy field and neither one is legal as type on paper. */
+  --logo-shield-start: var(--aag-crimson);
+  --logo-shield-end: var(--aag-cyan);
+  --logo-wordmark: var(--aag-cyan-deep); /* 3.92:1, logotype at 24px+ = large text, 3:1 floor */
+  --logo-lockup: var(--aag-crimson-deep); /* 6.16:1 */
+
+  /* One radius ladder for the whole site. Near-sharp, echoing the flat bottoms
+     of the mark and the cut of the display serif. Nothing here is a pill. */
+  --radius: 0.25rem;
+}
+
+/* ---------------------------------------------------------------------------
+   2b. NAVY BAND - punctuation, not the ground state.
+   Apply `.band-navy` to a <section>. `.dark` is the same rule so that shadcn
+   primitives' dark: variants resolve correctly inside the band.
+--------------------------------------------------------------------------- */
+
+.dark,
+.band-navy {
+  --background: var(--aag-navy);
+  /* BRAND.md measures white on navy at 18.28:1. Paper measures 17.07:1 on the
+     same field, clears every threshold, and keeps pure white off the page as a
+     surface colour. Using the brand's own off-white rather than #FFF. */
+  --foreground: var(--aag-paper);
+
+  --card: var(--aag-navy-800); /* paper on navy-800 15.16:1 */
+  --card-foreground: var(--aag-paper);
+  --popover: var(--aag-navy-800);
+  --popover-foreground: var(--aag-paper);
+
+  /* Crimson stays the CTA fill on navy. The fill's edge measures 3.86:1
+     against navy, clear of the 3:1 floor for a UI component boundary, and the
+     white label on it still measures 4.74:1. */
+  --primary: var(--aag-crimson);
+  --primary-foreground: var(--aag-white);
+
+  /* Crimson as TEXT on navy is 3.86:1 and forbidden below 24px. Inline action
+     text on a band uses crimson-light at 7.00:1. */
+  --action-text: var(--aag-crimson-light);
+
+  --secondary: var(--aag-navy-700); /* paper on navy-700 12.72:1 */
+  --secondary-foreground: var(--aag-paper);
+
+  --muted: var(--aag-navy-800);
+  /* Slate is far too dark to sit on navy (about 2.6:1). Muted text on a band
+     is a lifted blue-grey: 8.49:1 on navy, 7.55:1 on navy-800. */
+  --muted-foreground: oklch(0.76 0.033 271.5); /* #A9B0C7 */
+
+  --accent: var(--aag-cyan); /* cyan on navy 6.98:1 - body text OK */
+  --accent-foreground: var(--aag-navy);
+
+  /* On navy, plain cyan already clears 3:1, so the systems stroke is the
+     brand cyan itself rather than the deep variant. */
+  --stroke-systems: var(--aag-cyan);
+
+  --border: oklch(0.33 0.08 270.6); /* #26325E - decorative hairline */
+  --input: oklch(0.54 0.045 270.6); /* #656E8A - 3.60:1 vs navy, 3.20:1 vs navy-800 */
+  --ring: var(--aag-crimson-light); /* 7.00:1 vs navy */
+  --destructive: var(--aag-crimson-light); /* 7.00:1, legible as text */
+
+  --chart-1: var(--aag-cyan-light);
+  --chart-2: var(--aag-cyan);
+  --chart-3: var(--aag-cyan-deep);
+  --chart-4: var(--aag-paper);
+  --chart-5: oklch(0.76 0.033 271.5);
+
+  /* On navy the wordmark runs as BRAND.md specifies it: cyan, 6.98:1, legal
+     at any size.
+
+     The lockup is the one place this file deliberately does not take BRAND.md
+     literally, and the reason is BRAND.md's own contrast law. The identity
+     calls for a crimson lockup, but crimson on navy measures 3.86:1 and the
+     law restricts it to display text at 24px and above. The lockup's most
+     common home is the footer, at roughly 10px. Rather than ship a component
+     that is legal in the hero and illegal in the footer, the default is
+     crimson-light: 7.00:1, legal at every size, and the brand's own token for
+     "crimson, on dark".
+
+     BRAND.md's 24px+ carve-out is therefore unused by default. To take it, set
+     --logo-lockup: var(--aag-crimson) on that one element, and only where the
+     lockup actually renders at 24px or larger. */
+  --logo-wordmark: var(--aag-cyan);
+  --logo-lockup: var(--aag-crimson-light);
+}
+
+/* ===========================================================================
+   3. TYPE SCALE
+   Two ratios, interpolated by clamp(). Minor third (1.200) on a 360px
+   viewport, perfect fourth (1.333) at 1440px, base 16px -> 18px.
+   Rationale in full sits in the commit message; the short version is that a
+   perfect fourth on a 360px Android screen throws the hero headline past two
+   lines, and a minor third at desktop is too flat to give a Didone a display
+   moment. Interpolating between the two gets both.
+
+   Every clamp carries a rem term, so browser zoom still scales the text.
+
+   Usage:
+     display  one moment per page, at most. Closing CTA or a single figure.
+     h1       hero headline only.
+     h2       section headlines.
+     h3       sub-headlines, large card titles.
+     lead     hero subtext, card titles, intro paragraphs.
+     body     everything else.
+     caption  labels, footnotes, form helper text.
+   =========================================================================== */
+
+@theme {
+  --font-display: var(--font-bodoni-moda), ui-serif, Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* step -1  13.33 -> 13.50 */
+  --text-caption: clamp(0.8331rem, 0.8296rem + 0.0157vw, 0.8438rem);
+  --text-caption--line-height: 1.4;
+  --text-caption--letter-spacing: 0.01em;
+
+  /* step 0   16.00 -> 18.00 */
+  --text-body: clamp(1rem, 0.9583rem + 0.1852vw, 1.125rem);
+  --text-body--line-height: 1.6;
+
+  /* step 1   19.20 -> 24.00 */
+  --text-lead: clamp(1.2rem, 1.1rem + 0.4444vw, 1.5rem);
+  --text-lead--line-height: 1.5;
+
+  /* step 2   23.04 -> 32.00 */
+  --text-h3: clamp(1.44rem, 1.2533rem + 0.8296vw, 2rem);
+  --text-h3--line-height: 1.25;
+  --text-h3--letter-spacing: -0.01em;
+
+  /* step 3   27.65 -> 42.65 */
+  --text-h2: clamp(1.7281rem, 1.4156rem + 1.3889vw, 2.6656rem);
+  --text-h2--line-height: 1.18;
+  --text-h2--letter-spacing: -0.015em;
+
+  /* step 4   33.18 -> 56.85  - the hero headline lives here */
+  --text-h1: clamp(2.0738rem, 1.5806rem + 2.1917vw, 3.5531rem);
+  --text-h1--line-height: 1.12;
+  --text-h1--letter-spacing: -0.02em;
+
+  /* step 5   39.81 -> 75.79 */
+  --text-display: clamp(2.4881rem, 1.7385rem + 3.3315vw, 4.7369rem);
+  --text-display--line-height: 1.1;
+  --text-display--letter-spacing: -0.022em;
+
+  /* Line heights on h1 and display are held at 1.12 and 1.10 rather than the
+     tighter values a Didone invites, so that an italic word carrying a
+     descender (y g j p q) never clips. Bodoni Moda's italic descenders are
+     long. This removes the need for a per-element pb-1 reserve. */
+
+  /* Identity tracking. BRAND.md: wordmark and lockup are both letterspaced. */
+  --tracking-wordmark: 0.1em;
+  --tracking-lockup: 0.14em;
+
+  /* ==========================================================================
+     4. SPACING AND SECTION RHYTHM
+     Steps below 1rem are fixed: fluid 4px is noise. Everything from md up is
+     fluid on the same 360 -> 1440 track as the type.
+     ========================================================================== */
+
+  --spacing-2xs: 0.25rem; /* 4 */
+  --spacing-xs: 0.5rem; /* 8 */
+  --spacing-sm: 0.75rem; /* 12 */
+  --spacing-md: clamp(1rem, 0.9583rem + 0.1852vw, 1.125rem); /* 16 -> 18 */
+  --spacing-lg: clamp(1.5rem, 1.4167rem + 0.3704vw, 1.75rem); /* 24 -> 28 */
+  --spacing-xl: clamp(2rem, 1.8333rem + 0.7407vw, 2.5rem); /* 32 -> 40 */
+  --spacing-2xl: clamp(3rem, 2.6667rem + 1.4815vw, 4rem); /* 48 -> 64 */
+  --spacing-3xl: clamp(4rem, 3.3333rem + 2.963vw, 6rem); /* 64 -> 96 */
+  --spacing-4xl: clamp(6rem, 5rem + 4.4444vw, 9rem); /* 96 -> 144 */
+
+  /* --- Section rhythm bands ---------------------------------------------
+     Uniform vertical padding on every section is the single clearest tell
+     that a page was generated rather than composed. Three bands, and a rule
+     for which applies:
+
+     py-band-anchor   96 -> 168px
+       The hero, the closing CTA, and at most one mid-page navy band.
+       Maximum three per page. An anchor band is a full stop.
+
+     py-band          64 -> 112px
+       The default. About, Services, Approach, Proof, Contact.
+
+     py-band-tight    40 -> 64px
+       A strip that BELONGS TO the section above it and reads as part of it:
+       the credibility stats under About, the footer's upper block. A tight
+       band never opens a page and never stands alone as a topic.
+
+     Two constraints on the sequence:
+       1. Never more than two consecutive standard bands without a tight or
+          anchor band between them. Three in a row and the page flattens.
+       2. A tight band never directly follows an anchor band. The anchor has
+          already given the eye its air; a tight band there reads as a mistake.
+     ---------------------------------------------------------------------- */
+  --spacing-band-tight: clamp(2.5rem, 2rem + 2.2222vw, 4rem); /* 40 -> 64 */
+  --spacing-band: clamp(4rem, 3rem + 4.4444vw, 7rem); /* 64 -> 112 */
+  --spacing-band-anchor: clamp(6rem, 4.5rem + 6.6667vw, 10.5rem); /* 96 -> 168 */
+
+  /* Gutters and measure */
+  --container-page: 78rem; /* 1248px outer content rail */
+  --container-prose: 65ch; /* body copy measure */
+}
+
+/* ===========================================================================
+   5. TOKEN -> UTILITY MAPPING
+   `inline` so the utilities resolve through the vars above, which is what
+   lets `.band-navy` re-point them on a per-section basis.
+   =========================================================================== */
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
-  --font-heading: var(--font-sans);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Brand-semantic utilities that shadcn has no name for */
+  --color-action-text: var(--action-text);
+  --color-stroke-systems: var(--stroke-systems);
+  --color-logo-shield-start: var(--logo-shield-start);
+  --color-logo-shield-end: var(--logo-shield-end);
+  --color-logo-wordmark: var(--logo-wordmark);
+  --color-logo-lockup: var(--logo-lockup);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Raw brand values, for the rare component that needs a literal */
+  --color-aag-crimson: var(--aag-crimson);
+  --color-aag-crimson-deep: var(--aag-crimson-deep);
+  --color-aag-crimson-light: var(--aag-crimson-light);
+  --color-aag-cyan: var(--aag-cyan);
+  --color-aag-cyan-deep: var(--aag-cyan-deep);
+  --color-aag-cyan-light: var(--aag-cyan-light);
+  --color-aag-navy: var(--aag-navy);
+  --color-aag-navy-800: var(--aag-navy-800);
+  --color-aag-navy-700: var(--aag-navy-700);
+  --color-aag-ink: var(--aag-ink);
+  --color-aag-paper: var(--aag-paper);
+  --color-aag-slate: var(--aag-slate);
+
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -48,83 +409,49 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-:root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-}
-
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
-}
+/* =========================================================================== */
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
+
   html {
     @apply font-sans;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground text-body;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Display type is the serif, everywhere, without per-component opt-in. */
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+    font-variant-numeric: lining-nums proportional-nums;
+  }
+
+  /* Figures line up in stat strips and any KES amount. */
+  table,
+  [data-numeric] {
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  /* MOTION_INTENSITY 4 sits above the skill's threshold of 3, so reduced
+     motion is mandatory and global rather than per-component. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
