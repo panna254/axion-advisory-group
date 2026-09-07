@@ -1,6 +1,11 @@
+import type { Service, ServiceSlug } from "@/types/service";
 import { CLUSTERS } from "@/lib/services-data";
 
 import { ClusterCard } from "./cluster-card";
+
+export interface ServicesSectionProps {
+  servicesBySlug?: Readonly<Record<ServiceSlug, Service>>;
+}
 
 /**
  * Section 4, "What we do". Bento layout with uneven rhythm: seven practice
@@ -9,12 +14,12 @@ import { ClusterCard } from "./cluster-card";
  * lives inside each card, where `ClusterCard` renders one or two
  * `PracticeLineRow`s depending on how many of its lines are publishable.
  *
- * Server Component. Reads `CLUSTERS` directly; no props.
+ * Server Component.
  *
  * See `docs/research/components/services-section.spec.md` for the full
  * contract.
  */
-export function ServicesSection() {
+export function ServicesSection({ servicesBySlug }: ServicesSectionProps = {}) {
   return (
     <section id="services" className="py-band">
       <div className="max-w-page mx-auto px-md">
@@ -30,7 +35,11 @@ export function ServicesSection() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-lg">
           {CLUSTERS.map((cluster) => (
-            <ClusterCard key={cluster.slug} cluster={cluster} />
+            <ClusterCard
+              key={cluster.slug}
+              cluster={cluster}
+              servicesBySlug={servicesBySlug}
+            />
           ))}
         </div>
       </div>

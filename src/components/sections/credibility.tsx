@@ -1,11 +1,10 @@
-export type Stat = {
-  value: string;
-  label: string;
-};
+import type { StatItem } from "@/types/stat";
+
+export type { StatItem as Stat };
 
 export type CredibilityProps = {
   /** Up to 3 stats. Currently always empty/undefined — no figures are sourced yet. */
-  stats?: Stat[];
+  stats?: StatItem[];
   /** Prose sentence or comma-joined list. Currently always undefined — unsourced. */
   certifications?: string;
 };

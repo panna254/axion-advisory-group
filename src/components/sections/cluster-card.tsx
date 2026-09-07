@@ -1,3 +1,4 @@
+import type { Service, ServiceSlug } from "@/types/service";
 import { isPublishable } from "@/types/content";
 import { SERVICES_BY_SLUG, type Cluster } from "@/lib/services-data";
 
@@ -5,6 +6,7 @@ import { PracticeLineRow } from "./practice-line-row";
 
 interface ClusterCardProps {
   cluster: Cluster;
+  servicesBySlug?: Readonly<Record<ServiceSlug, Service>>;
 }
 
 /**
@@ -19,10 +21,11 @@ interface ClusterCardProps {
  * simply renders however many rows resolve, with no placeholder held open
  * for a line that hasn't cleared gating yet.
  */
-export function ClusterCard({ cluster }: ClusterCardProps) {
+export function ClusterCard({ cluster, servicesBySlug }: ClusterCardProps) {
+  const serviceMap = servicesBySlug ?? SERVICES_BY_SLUG;
   const lines = cluster.lines
-    .map((slug) => SERVICES_BY_SLUG[slug])
-    .filter((service) => isPublishable(service.status));
+    .map((slug) => serviceMap[slug])
+    .filter((service): service is Service => Boolean(service) && isPublishable(service.status));
 
   return (
     <article id={`services-${cluster.slug}`}>

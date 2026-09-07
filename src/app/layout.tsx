@@ -62,10 +62,10 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   // META-TITLE, budget 60
-  title: "Axion Advisory Group · Business and Financial Advisory, Kenya",
+  title: "Axion Advisory Group · Business & Financial Advisory, Kenya",
   // META-DESC, budget 155
   description:
-    "Business consultancy, financial management, and risk advisory for Kenyan firms. Practical advice from advisors who have run the numbers.",
+    "Business consultancy, financial management, risk, financing, training, and market entry advisory for Kenyan firms. Based in Nairobi.",
   applicationName: "Axion Advisory Group",
   icons: {
     icon: [
@@ -81,9 +81,9 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "Axion Advisory Group",
     locale: "en_KE",
-    title: "Axion Advisory Group · Business and Financial Advisory, Kenya",
+    title: "Axion Advisory Group · Business & Financial Advisory, Kenya",
     description:
-      "Business consultancy, financial management, and risk advisory for Kenyan firms. Practical advice from advisors who have run the numbers.",
+      "Business consultancy, financial management, risk, financing, training, and market entry advisory for Kenyan firms. Based in Nairobi.",
     url: "/",
     images: [
       {
@@ -91,15 +91,15 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         // META-OG-ALT, budget 120
-        alt: "Axion Advisory Group logo on a deep navy field.",
+        alt: "The Axion Advisory Group mark and wordmark on a deep navy field.",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Axion Advisory Group · Business and Financial Advisory, Kenya",
+    title: "Axion Advisory Group · Business & Financial Advisory, Kenya",
     description:
-      "Business consultancy, financial management, and risk advisory for Kenyan firms. Practical advice from advisors who have run the numbers.",
+      "Business consultancy, financial management, risk, financing, training, and market entry advisory for Kenyan firms. Based in Nairobi.",
     images: ["/seo/og.png"],
   },
 };

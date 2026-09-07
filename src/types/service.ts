@@ -36,10 +36,9 @@ export interface Service {
    */
   name: string;
   /**
-   * `SVC-0n-SUMMARY` (renamed from the register's old `SVC-0n-DESC`). Written
-   * by us, so `DRAFT`, and subject to the banned-word list in `BRAND.md`.
-   * Budget 12-18 words. Card-level copy — this is what `PracticeLineRow`
-   * shows collapsed.
+   * `SVC-0n-SUMMARY`. Written by us, so `DRAFT`, and subject to the
+   * banned-word list in `BRAND.md`. Budget 12-18 words. Card-level copy — this
+   * is what `PracticeLineRow` shows collapsed.
    */
   summary: string;
   /**
