@@ -52,7 +52,7 @@ These override the `design-taste-frontend` skill's 8 / 6 / 4 baseline for every 
 - Wordmark: AAG — geometric sans, letterspaced, cyan.
 - Lockup: AXION ADVISORY GROUP — geometric sans, crimson, letterspaced.
 - Tagline: "Your Partner For Business Group" — UNCONFIRMED, likely a typo for "Growth". Treat as literal until I say otherwise.
-- Type direction: geometric sans display (Space Grotesk) plus a neutral grotesque for UI (Archivo). Inter is not used.
+- Type direction: geometric sans display (Space Grotesk) plus a neutral grotesque for UI (Inter).
 
 ---
 

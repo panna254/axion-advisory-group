@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Space_Grotesk } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 
 import "./globals.css";
 
@@ -7,8 +7,7 @@ import "./globals.css";
    Type.
 
    BRAND.md sets the direction: geometric sans display (Space Grotesk) plus a
-   neutral grotesque for UI (Archivo). Inter is not used anywhere in this
-   project.
+   neutral grotesque for UI (Inter).
 
    Space Grotesk carries display, including the AAG wordmark and the AXION
    ADVISORY GROUP lockup — both letterspaced, per BRAND.md's identity block.
@@ -16,8 +15,7 @@ import "./globals.css";
    style, so nothing in this project uses `italic` on `font-display` text (see
    `testimonial-quote.tsx`, the one place that used to).
 
-   Archivo carries UI. A neutral grotesque with a slightly narrow set width, so
-   it holds a nav bar on one line and stays legible at caption sizes.
+   Inter carries UI: nav, body copy, form fields, captions.
 
    Weights are explicit rather than variable, to keep the payload honest:
    display 400 and 600, UI 400/500/600. Both display weights already match
@@ -33,8 +31,8 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 });
 
-const archivo = Archivo({
-  variable: "--font-archivo",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   style: ["normal"],
@@ -115,7 +113,7 @@ export default function RootLayout({
        page mode. See the token header in globals.css. */
     <html
       lang="en-KE"
-      className={`${spaceGrotesk.variable} ${archivo.variable} h-full antialiased`}
+      className={`${spaceGrotesk.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">{children}</body>
     </html>
