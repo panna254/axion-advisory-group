@@ -122,7 +122,7 @@ deliberately, per Design Specification above. Image slots: none.
 
 ## ANTI-SLOP CONSTRAINTS
 
-- **No numbered-circle-with-icon-inside per stage.** A bare numeral in the display serif is enough; a circular badge containing a generic icon (a magnifying glass for "Diagnose", a checklist for "Build") is the single most common process-section pattern and each icon would need inventing rather than sourcing from an existing set.
+- **No numbered-circle-with-icon-inside per stage.** A bare numeral in the display face is enough; a circular badge containing a generic icon (a magnifying glass for "Diagnose", a checklist for "Build") is the single most common process-section pattern and each icon would need inventing rather than sourcing from an existing set.
 - **No "Stage 1 / Stage 2" prefix baked into the copy.** Covered under Design Specification — the ordinal is a design element applied to the numeral, never typed into the name string.
 - **No progress bar or percentage-complete affordance.** This is a description of how engagements run, not a live tracker a client logs into; a progress indicator implies real-time state that does not exist here.
 - **No horizontal scroll-snap carousel for the four stages at mobile.** They stack vertically in full, per Responsive Behavior — a swipeable carousel would hide three of the four stages behind a gesture on a section whose entire point is showing the whole process at once.

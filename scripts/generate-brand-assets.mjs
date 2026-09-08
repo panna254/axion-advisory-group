@@ -68,7 +68,7 @@ const LOCKUP_MARK_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12
    user-agent is what makes the Google Fonts CSS API serve .ttf.
 --------------------------------------------------------------------------- */
 const FONT_CSS_URL =
-  "https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;600&family=Archivo:wght@400&display=swap";
+  "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&family=Archivo:wght@400&display=swap";
 
 async function loadFonts() {
   const css = await fetch(FONT_CSS_URL, {
@@ -124,7 +124,7 @@ function ogElement() {
         "div",
         {
           style: {
-            fontFamily: "Bodoni Moda",
+            fontFamily: "Space Grotesk",
             fontWeight: 400,
             fontSize: 120,
             letterSpacing: "0.1em",
@@ -141,7 +141,7 @@ function ogElement() {
       {
         style: {
           marginTop: "44px",
-          fontFamily: "Bodoni Moda",
+          fontFamily: "Space Grotesk",
           fontWeight: 600,
           fontSize: 40,
           letterSpacing: "0.14em",

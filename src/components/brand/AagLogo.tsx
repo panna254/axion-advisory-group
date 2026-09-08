@@ -110,10 +110,9 @@ export function AagLogo({
         {/* Wordmark and lockup are separate nodes so each takes its own
             tracking, size and colour. On `full` the wordmark is hidden from
             assistive tech, since the lockup below already says the name. */}
-        {/* 400 at display size, 600 for the small lockup. A Didone's contrast
-            is what makes it worth using, and filling in the hairlines at a
-            heavier weight throws it away; below about 12px the same hairlines
-            disappear and need the weight back. */}
+        {/* 400 at display size, 600 for the small lockup — the lockup runs at
+            0.62em against the wordmark's 1.65em, and the extra weight keeps
+            it legible at that size and tracking. */}
         <span
           aria-hidden={variant === "full" ? true : undefined}
           className={cn(

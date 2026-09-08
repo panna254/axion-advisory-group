@@ -152,7 +152,7 @@
   --logo-lockup: var(--aag-crimson-deep); /* 6.16:1 */
 
   /* One radius ladder for the whole site. Near-sharp, echoing the flat bottoms
-     of the mark and the cut of the display serif. Nothing here is a pill. */
+     of the mark. Nothing here is a pill. */
   --radius: 0.25rem;
 }
 
@@ -236,7 +236,7 @@
    viewport, perfect fourth (1.333) at 1440px, base 16px -> 18px.
    Rationale in full sits in the commit message; the short version is that a
    perfect fourth on a 360px Android screen throws the hero headline past two
-   lines, and a minor third at desktop is too flat to give a Didone a display
+   lines, and a minor third at desktop is too flat to give the display face a
    moment. Interpolating between the two gets both.
 
    Every clamp carries a rem term, so browser zoom still scales the text.
@@ -252,7 +252,7 @@
    =========================================================================== */
 
 @theme {
-  --font-display: var(--font-bodoni-moda), ui-serif, Georgia, "Times New Roman", serif;
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-sans: var(--font-archivo), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
@@ -289,10 +289,9 @@
   --text-display--line-height: 1.1;
   --text-display--letter-spacing: -0.022em;
 
-  /* Line heights on h1 and display are held at 1.12 and 1.10 rather than the
-     tighter values a Didone invites, so that an italic word carrying a
-     descender (y g j p q) never clips. Bodoni Moda's italic descenders are
-     long. This removes the need for a per-element pb-1 reserve. */
+  /* Line heights on h1 and display are held at 1.12 and 1.10 — roomy enough
+     that a descender (y g j p q) on the longest word never clips, without
+     needing a per-element pb-1 reserve. */
 
   /* Identity tracking. BRAND.md: wordmark and lockup are both letterspaced. */
   --tracking-wordmark: 0.1em;

@@ -26,7 +26,7 @@ export function TestimonialQuote({ quote, name, role }: TestimonialQuoteProps) {
   return (
     <figure>
       <blockquote>
-        <p className="text-h3 font-display font-normal italic text-foreground max-w-[42ch]">
+        <p className="text-h3 font-display font-normal text-foreground max-w-[42ch]">
           {quote}
         </p>
       </blockquote>

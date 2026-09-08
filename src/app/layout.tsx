@@ -1,42 +1,35 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Bodoni_Moda } from "next/font/google";
+import { Archivo, Space_Grotesk } from "next/font/google";
 
 import "./globals.css";
 
 /* ---------------------------------------------------------------------------
    Type.
 
-   BRAND.md sets the direction: "high-contrast display serif plus a neutral
-   grotesque for UI. Inter is banned as the display face." Inter is not used
-   anywhere in this project, as a display face or otherwise.
+   BRAND.md sets the direction: geometric sans display (Space Grotesk) plus a
+   neutral grotesque for UI (Archivo). Inter is not used anywhere in this
+   project.
 
-   Bodoni Moda carries display. It is a true Didone, so the stroke contrast is
-   structural rather than styled, which is what "high-contrast" actually asks
-   for. It letterspaces without falling apart, which the identity needs: both
-   the AAG wordmark and the AXION ADVISORY GROUP lockup are specified as
-   letterspaced serif. Playfair Display would have been the obvious pick from
-   the taste skill's rotation pool and is the reason it was passed over: it is
-   the most-reached-for serif on Google Fonts and reads as a default. Fraunces
-   and Instrument Serif are banned outright by the skill.
+   Space Grotesk carries display, including the AAG wordmark and the AXION
+   ADVISORY GROUP lockup — both letterspaced, per BRAND.md's identity block.
+   Google Fonts ships it in weight 300-700, upright only; there is no italic
+   style, so nothing in this project uses `italic` on `font-display` text (see
+   `testimonial-quote.tsx`, the one place that used to).
 
    Archivo carries UI. A neutral grotesque with a slightly narrow set width, so
-   it holds a nav bar on one line and stays legible at caption sizes without
-   competing with the Didone's contrast.
+   it holds a nav bar on one line and stays legible at caption sizes.
 
    Weights are explicit rather than variable, to keep the payload honest:
-   display 400 and 600 in both styles, UI 400/500/600. Display headlines run at
-   400, because filling in a Didone's hairlines at 600 destroys the contrast
-   that made it worth choosing. 600 exists for the small letterspaced lockup,
-   where a 400 hairline would disappear. Italic is loaded because the taste
-   skill requires in-family italic for emphasis inside a headline rather than a
-   second family.
+   display 400 and 600, UI 400/500/600. Both display weights already match
+   every `font-display` usage in the codebase (`font-normal` / `font-semibold`
+   Tailwind classes), so the type-scale layer needed no changes for the swap.
 --------------------------------------------------------------------------- */
 
-const bodoniModa = Bodoni_Moda({
-  variable: "--font-bodoni-moda",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
   weight: ["400", "600"],
-  style: ["normal", "italic"],
+  style: ["normal"],
   display: "swap",
 });
 
@@ -122,7 +115,7 @@ export default function RootLayout({
        page mode. See the token header in globals.css. */
     <html
       lang="en-KE"
-      className={`${bodoniModa.variable} ${archivo.variable} h-full antialiased`}
+      className={`${spaceGrotesk.variable} ${archivo.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">{children}</body>
     </html>

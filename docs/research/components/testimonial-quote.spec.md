@@ -28,9 +28,9 @@ The second of two children of `proof-section.spec.md`. Renders `QUOTE-01-TEXT`,
   and a screen reader announces a blockquote distinctly
 
 ### Quote text
-- `text-h3 font-display font-normal italic text-foreground max-w-[42ch]`
-- **Italic, in the display serif.** `layout.tsx`'s font-loading comment notes italic is loaded specifically so the taste skill's "in-family italic for emphasis" rule can be used instead of a second typeface — this is that rule's one use on the page. The quote is the single moment of display-serif italic type on the site; it should not be reused elsewhere for generic emphasis, which would dilute what makes it distinctive here.
-- No decorative quotation-mark glyph (no giant `"` character floated behind or beside the text) — the italic treatment plus the `<blockquote>` semantics already signal "this is a quotation" without adding a graphic element
+- `text-h3 font-display font-normal text-foreground max-w-[42ch]`
+- **Upright, not italic.** The display face (Space Grotesk) ships no italic style, and a browser-synthesized slant is exactly the "styled, not structural" shortcut this project avoids elsewhere — so the quote runs upright at display size instead. Size and the `<blockquote>` semantics carry "this is a quotation" on their own.
+- No decorative quotation-mark glyph (no giant `"` character floated behind or beside the text) — the size treatment plus the `<blockquote>` semantics already signal "this is a quotation" without adding a graphic element
 
 ### Attribution
 - `mt-lg flex items-center gap-sm`
@@ -77,6 +77,6 @@ content clears.
 ## ANTI-SLOP CONSTRAINTS
 
 - **No composite or anonymised-but-plausible testimonial.** `CONTENT.md`'s own words: "No composite clients, no anonymised-but-plausible outcomes, no illustrative figures." Full absence over a softened substitute.
-- **No decorative giant quotation-mark glyph.** Covered under Design Specification — the semantic markup and italic treatment already carry the meaning.
+- **No decorative giant quotation-mark glyph.** Covered under Design Specification — the semantic markup and size treatment already carry the meaning.
 - **No stock headshot standing in for the named person.** None is supplied; none is invented.
 - **No star rating attached to the quote.** Nothing in the register supplies one.

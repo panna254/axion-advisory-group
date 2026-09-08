@@ -45,7 +45,7 @@ firm, one proposition, one `<h1>`.
 
 ### H1
 - `text-h1 font-display font-normal text-foreground mb-md`
-- **Font weight is 400, not 600.** `layout.tsx`'s comment is explicit: filling in a Didone's hairlines at 600 destroys the stroke contrast that is the entire reason Bodoni Moda was chosen. Weight 600 is reserved for the small letterspaced lockup.
+- **Font weight is 400, not 600.** Weight 600 is reserved for the small letterspaced lockup, which needs the extra weight at its much smaller size; the H1 runs at display size and doesn't.
 - Max width: `max-w-[16ch]` at `lg` and up only (removed below `lg`, where the column is already full-bleed) — `HERO-H1` is capped at 55 characters / two lines in `CONTENT.md`, and an unconstrained measure at desktop would let it run to one long line instead of the intended two.
 
 ### Subtext

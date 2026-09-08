@@ -49,10 +49,10 @@ These override the `design-taste-frontend` skill's 8 / 6 / 4 baseline for every 
 ## Identity
 
 - Mark: two rounded shield forms side by side, crimson left, cyan right, flat bottoms, fully rounded tops. Rebuilt as SVG paths, never traced from a photo.
-- Wordmark: AAG — serif, letterspaced, cyan.
-- Lockup: AXION ADVISORY GROUP — serif, crimson, letterspaced.
+- Wordmark: AAG — geometric sans, letterspaced, cyan.
+- Lockup: AXION ADVISORY GROUP — geometric sans, crimson, letterspaced.
 - Tagline: "Your Partner For Business Group" — UNCONFIRMED, likely a typo for "Growth". Treat as literal until I say otherwise.
-- Type direction: high-contrast display serif plus a neutral grotesque for UI. Inter is banned as the display face.
+- Type direction: geometric sans display (Space Grotesk) plus a neutral grotesque for UI (Archivo). Inter is not used.
 
 ---
 
