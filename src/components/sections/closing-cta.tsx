@@ -23,7 +23,7 @@ export function ClosingCta() {
             Tell us what is in front of you. We will say whether we are the
             right firm for it.
           </p>
-          <CtaButton variant="primary" href="#contact">
+          <CtaButton variant="primary" href="/#contact">
             Book a consultation
           </CtaButton>
         </div>

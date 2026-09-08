@@ -33,11 +33,11 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { label: "Services", href: "#services" },
-  { label: "Approach", href: "#approach" },
-  { label: "About", href: "#about" },
+  { label: "Services", href: "/#services" },
+  { label: "Approach", href: "/#approach" },
+  { label: "About", href: "/#about" },
   { label: "Insights", href: "/insights" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 const NAV_ITEM_CLASSES =
@@ -75,7 +75,7 @@ export function MobileNavDrawer({
   function isActive(href: string) {
     // Hash anchors all live on the home route and have no scroll-spy signal
     // here, so only a distinct route (Insights) can be marked current.
-    if (href.startsWith("#")) return false;
+    if (href.includes("#")) return false;
     return pathname === href || pathname?.startsWith(`${href}/`);
   }
 
@@ -134,7 +134,7 @@ export function MobileNavDrawer({
 
           <CtaButton
             variant="primary"
-            href="#contact"
+            href="/#contact"
             onClick={handleNavigate}
             className="mt-auto w-full"
           >

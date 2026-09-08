@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { AagLogo } from "@/components/brand/AagLogo";
 import {
   IconAddress,
@@ -56,12 +58,12 @@ const YEAR_PLACEHOLDER = "[CLIENT TO SUPPLY: year]";
 const SERVICE_LINKS = CLUSTERS.map((cluster) => ({
   key: cluster.slug,
   label: cluster.name,
-  href: `#services-${cluster.slug}`,
+  href: `/#services-${cluster.slug}`,
 }));
 
 const FIRM_LINKS = [
-  { key: "about", label: "About", href: "#about" },
-  { key: "approach", label: "Approach", href: "#approach" },
+  { key: "about", label: "About", href: "/#about" },
+  { key: "approach", label: "Approach", href: "/#approach" },
   { key: "insights", label: "Insights", href: "/insights" },
 ] as const;
 
@@ -103,9 +105,9 @@ export function SiteFooter({
             <ul className="flex flex-col gap-xs">
               {SERVICE_LINKS.map((link) => (
                 <li key={link.key}>
-                  <a href={link.href} className={LINK_CLASSES}>
+                  <Link href={link.href} className={LINK_CLASSES}>
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -116,9 +118,9 @@ export function SiteFooter({
             <ul className="flex flex-col gap-xs">
               {FIRM_LINKS.map((link) => (
                 <li key={link.key}>
-                  <a href={link.href} className={LINK_CLASSES}>
+                  <Link href={link.href} className={LINK_CLASSES}>
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -136,9 +138,9 @@ export function SiteFooter({
                 ))
               ) : (
                 <li>
-                  <a href="#contact" className={LINK_CLASSES}>
+                  <Link href="/#contact" className={LINK_CLASSES}>
                     See the enquiry form above
-                  </a>
+                  </Link>
                 </li>
               )}
             </ul>
@@ -154,9 +156,9 @@ export function SiteFooter({
               </p>
             ) : null}
           </div>
-          <a href="/privacy" className={PRIVACY_LINK_CLASSES}>
+          <Link href="/privacy" className={PRIVACY_LINK_CLASSES}>
             Privacy notice
-          </a>
+          </Link>
         </div>
       </div>
     </footer>

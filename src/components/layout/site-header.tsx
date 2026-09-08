@@ -24,11 +24,11 @@ interface NavItem {
 }
 
 const NAV_ITEMS: readonly NavItem[] = [
-  { label: "Services", href: "#services" },
-  { label: "Approach", href: "#approach" },
-  { label: "About", href: "#about" },
+  { label: "Services", href: "/#services" },
+  { label: "Approach", href: "/#approach" },
+  { label: "About", href: "/#about" },
   { label: "Insights", href: "/insights" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact", href: "/#contact" },
 ] as const;
 
 export function SiteHeader() {
@@ -56,7 +56,7 @@ export function SiteHeader() {
   }, []);
 
   function isActive(href: string) {
-    if (href.startsWith("#")) return false;
+    if (href.includes("#")) return false;
     return pathname === href || pathname?.startsWith(`${href}/`);
   }
 
@@ -111,7 +111,7 @@ export function SiteHeader() {
           </nav>
 
           <div className="flex items-center gap-xs sm:gap-sm">
-            <CtaButton variant="primary" href="#contact">
+            <CtaButton variant="primary" href="/#contact">
               Book a consultation
             </CtaButton>
 
