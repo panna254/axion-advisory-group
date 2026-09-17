@@ -59,7 +59,7 @@ export type CtaButtonProps = CtaButtonAsAnchorProps | CtaButtonAsButtonProps;
    deliberately left out (pill radius, glow, gradient fill, hover scale).
 --------------------------------------------------------------------------- */
 const BASE_CLASSES =
-  "inline-flex items-center justify-center gap-xs px-lg py-sm min-h-11 rounded-lg text-body font-sans font-medium whitespace-nowrap transition-[background-color,border-color,color,transform] duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] focus-visible:outline-none";
+  "inline-flex items-center justify-center gap-xs px-lg py-sm min-h-11 rounded-lg text-body font-body font-semibold whitespace-nowrap transition-[background-color,border-color,color,transform] duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] focus-visible:outline-none";
 
 const VARIANT_CLASSES: Record<CtaButtonProps["variant"], string> = {
   primary:

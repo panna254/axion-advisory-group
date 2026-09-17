@@ -7,53 +7,35 @@ import { Dialog } from "@base-ui/react/dialog";
 import { AagLogo } from "@/components/brand/AagLogo";
 import { IconClose } from "@/components/icons";
 import { CtaButton } from "@/components/ui/cta-button";
+import { NAV_CTA, PRIMARY_NAV, isNavItemActive } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
 
 /* ---------------------------------------------------------------------------
-   MobileNavDrawer — shared primitive.
+   MobileNavDrawer — the menu below `lg`.
 
-   Client Component. Built on Base UI's Dialog (`@base-ui/react/dialog`), not a
-   hand-rolled implementation: `Dialog.Root`'s `modal` default gives focus
-   trap, scroll lock and outside-pointer suppression for free, and
-   `useDialogRoot` wires Escape-to-close and outside-press-to-close
-   unconditionally, so none of that is reimplemented here.
+   A sheet that drops from the top edge in the same navy glass as the header
+   (`glass-navy glass-sheet`, `globals.css` §7), rather than a full-height
+   side drawer. Its first row repeats the bar at the same height and on the
+   same rail, with the close button exactly where the menu button was, so
+   opening the menu reads as the header extending downward.
+
+   Built on Base UI's Dialog (`@base-ui/react/dialog`): `Dialog.Root`'s modal
+   default provides the focus trap, scroll lock and outside-press close, and
+   Escape-to-close is wired unconditionally. None of that is reimplemented.
 
    Base UI's data attributes are presence-based (`data-open` / `data-closed`),
-   not Radix's `data-state="open"|"closed"` — the animation classes below use
-   Tailwind's `data-[open]:` / `data-[closed]:` attribute-presence variant to
-   match.
+   so the animation classes use Tailwind's `data-[open]:` / `data-[closed]:`.
 
-   See `docs/research/components/mobile-nav-drawer.spec.md` for the full
-   visual and behavioural contract this implements.
+   See `docs/research/components/mobile-nav-drawer.spec.md`.
 --------------------------------------------------------------------------- */
-
-interface NavItem {
-  label: string;
-  href: string;
-}
-
-const NAV_ITEMS: NavItem[] = [
-  { label: "Services", href: "/#services" },
-  { label: "Approach", href: "/#approach" },
-  { label: "About", href: "/#about" },
-  { label: "Insights", href: "/insights" },
-  { label: "Contact", href: "/#contact" },
-];
-
-const NAV_ITEM_CLASSES =
-  "flex items-center h-11 px-xs rounded-lg text-lead font-sans font-medium text-foreground transition-[background-color,transform] duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-secondary/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:translate-y-px";
-
-const CLOSE_BUTTON_CLASSES =
-  "inline-flex items-center justify-center size-11 rounded-lg text-foreground transition-[background-color,transform] duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-secondary/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background active:translate-y-px";
 
 export interface MobileNavDrawerProps {
   /** Controlled open state. */
   open: boolean;
   onOpenChange: (open: boolean) => void;
   /**
-   * The hamburger button that opens this drawer, so focus can be returned to
-   * it on close. Optional: Base UI falls back to the previously focused
-   * element (typically the trigger anyway) when omitted.
+   * The menu button that opens this sheet, so focus returns to it on close.
+   * Optional: Base UI falls back to the previously focused element.
    */
   triggerRef?: RefObject<HTMLButtonElement | null>;
 }
@@ -66,17 +48,10 @@ export function MobileNavDrawer({
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
 
-  // A navigation is an implicit close (spec: Close triggers). Escape,
-  // backdrop click and the close button are already handled by Dialog.Root.
+  // A navigation is an implicit close. Escape, backdrop press and the close
+  // button are already handled by Dialog.Root.
   function handleNavigate() {
     onOpenChange(false);
-  }
-
-  function isActive(href: string) {
-    // Hash anchors all live on the home route and have no scroll-spy signal
-    // here, so only a distinct route (Insights) can be marked current.
-    if (href.includes("#")) return false;
-    return pathname === href || pathname?.startsWith(`${href}/`);
   }
 
   return (
@@ -87,59 +62,68 @@ export function MobileNavDrawer({
       <Dialog.Portal>
         <Dialog.Backdrop
           className={cn(
-            "fixed inset-0 z-50 bg-aag-ink/60",
+            "fixed inset-0 z-50 bg-aag-ink/55",
             "data-[open]:animate-in data-[open]:fade-in data-[closed]:animate-out data-[closed]:fade-out duration-200",
           )}
         />
         <Dialog.Popup
           id="mobile-nav-drawer"
           aria-modal="true"
+          aria-label="Menu"
           initialFocus={closeButtonRef}
           finalFocus={triggerRef}
           className={cn(
-            "fixed inset-y-0 right-0 z-50 h-full w-full max-w-[22.5rem]",
-            "bg-background band-navy flex flex-col gap-2xl p-lg",
-            "data-[open]:animate-in data-[open]:slide-in-from-right data-[closed]:animate-out data-[closed]:slide-out-to-right duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+            "glass-navy glass-sheet band-navy fixed inset-x-0 top-0 z-50 max-h-dvh overflow-y-auto border-b text-foreground",
+            "data-[open]:animate-in data-[open]:fade-in data-[open]:slide-in-from-top-2 data-[closed]:animate-out data-[closed]:fade-out data-[closed]:slide-out-to-top-2 duration-200 ease-[cubic-bezier(0.16,1,0.3,1)]",
           )}
         >
-          <div className="flex items-center justify-between">
-            <AagLogo variant="wordmark" />
-            <Dialog.Close
-              ref={closeButtonRef}
-              aria-label="Close menu"
-              className={CLOSE_BUTTON_CLASSES}
-            >
-              <IconClose size="md" />
-            </Dialog.Close>
+          <div className="max-w-page mx-auto px-md">
+            <div className="flex h-header items-center justify-between gap-lg">
+              <AagLogo variant="wordmark" />
+              <Dialog.Close
+                ref={closeButtonRef}
+                aria-label="Close menu"
+                className="-mr-xs inline-flex size-11 items-center justify-center rounded-lg text-foreground transition-colors duration-200 hover:bg-foreground/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              >
+                <IconClose size="md" />
+              </Dialog.Close>
+            </div>
+
+            <nav aria-label="Primary" className="border-t border-border">
+              <ul className="divide-y divide-border">
+                {PRIMARY_NAV.map((item) => {
+                  const active = isNavItemActive(pathname, item.href);
+                  return (
+                    <li key={item.id}>
+                      <a
+                        href={item.href}
+                        onClick={handleNavigate}
+                        aria-current={active ? "page" : undefined}
+                        className={cn(
+                          "flex min-h-14 items-center rounded-sm text-lead font-medium text-foreground decoration-1 underline-offset-8 transition-colors duration-200 hover:underline hover:decoration-foreground/50",
+                          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                          active && "underline decoration-primary decoration-2 hover:decoration-primary",
+                        )}
+                      >
+                        {item.label}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </nav>
+
+            <div className="border-t border-border pt-lg pb-[max(var(--spacing-lg),env(safe-area-inset-bottom))]">
+              <CtaButton
+                variant="primary"
+                href={NAV_CTA.href}
+                onClick={handleNavigate}
+                className="w-full"
+              >
+                {NAV_CTA.label}
+              </CtaButton>
+            </div>
           </div>
-
-          <nav>
-            <ul className="flex flex-col gap-xs">
-              {NAV_ITEMS.map((item) => (
-                <li key={item.href}>
-                  <a
-                    href={item.href}
-                    onClick={handleNavigate}
-                    className={cn(
-                      NAV_ITEM_CLASSES,
-                      isActive(item.href) && "bg-secondary",
-                    )}
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          <CtaButton
-            variant="primary"
-            href="/#contact"
-            onClick={handleNavigate}
-            className="mt-auto w-full"
-          >
-            Book a consultation
-          </CtaButton>
         </Dialog.Popup>
       </Dialog.Portal>
     </Dialog.Root>

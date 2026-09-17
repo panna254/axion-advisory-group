@@ -11,10 +11,14 @@ section that must be fully removable without restructuring anything above or
 below it, per `IA_CRITIQUE.md` §3.4.
 
 **Split across three files**: this wrapper (band, header, gating), plus
-`case-study-card.spec.md` and `testimonial-quote.spec.md` for the two
-distinct content types it can hold. They are structurally different (a
-problem/outcome pair vs. a quote and an attribution), so they are specified
-separately rather than as variants of one card.
+`testimonial-carousel.spec.md` (slide behaviour) and
+`testimonial-quote.spec.md` (one slide's typography).
+
+**Revised 2026-09-16.** The section used to hold two content types: a static
+case-study card above the testimonial carousel. The card was removed, along
+with `case-study-card.spec.md` and the four `CASE-01-*` slots in `CONTENT.md`,
+so the band presents client proof in one consistent format. A fixed block
+sitting over a rotating one read as two competing treatments of the same idea.
 
 ## Overview
 - **Target file:** `src/components/sections/proof-section.tsx`
@@ -28,9 +32,9 @@ separately rather than as variants of one card.
 <section id="proof" className="band-navy py-band-anchor">   only if not fully gated
   <div>                                  max-w-page mx-auto px-md
     <p>                                  PROOF-H2
-    <div>                                flex flex-col gap-2xl, single column
-      <CaseStudyCard />                  rendered only if CASE-01-* has cleared
-      <TestimonialQuote />               rendered only if QUOTE-01-* has cleared
+    <div>                                flex flex-col gap-lg, single column
+      <TestimonialCarousel />            client boundary; see its own spec
+      <p>                                illustrative-quotation note, conditional
 ```
 
 ## DESIGN SPECIFICATION
@@ -44,26 +48,29 @@ separately rather than as variants of one card.
 - `PROOF-H2`: `text-h2 font-display font-normal text-foreground mb-xl text-center` — the one centred headline on the page. Every other section header is left-aligned against the content rail; this one is centred because the column beneath it is genuinely single-column and centred, unlike every other section's asymmetric or grid layout, so a left-aligned headline above a centred column would look like a mistake rather than a choice.
 
 ### Column
-- `flex flex-col gap-2xl max-w-[52rem] mx-auto` — capped narrower than the full rail and centred, since a case study and a testimonial both read as long-form content best kept to a measure well under 1248px
+- `flex flex-col gap-lg max-w-[52rem] mx-auto` — capped narrower than the full rail and centred, since a serif testimonial reads as long-form content best kept to a measure well under 1248px
 
 ## States & Behaviors
 
 ### Full-section gating
-- **Trigger:** build time. Every slot in `CONTENT.md` §9 (`CASE-01-*`, `QUOTE-01-*`) is `NEEDS-CLIENT-INPUT`.
-- **State:** returns `null`. `CONTENT.md` is explicit: "Testimonials and case studies are the highest-liability slots on the site... If the client supplies nothing, this section does not ship." No placeholder quote, no "client stories coming soon" banner — full absence.
+- **Trigger:** build time. Every quote slot in `CONTENT.md` §9 (`QUOTE-01-*`) is `NEEDS-CLIENT-INPUT`, so no testimonial is renderable.
+- **State:** returns `null`. `CONTENT.md` is explicit: "Testimonials are the highest-liability slots on the site... If the client supplies nothing, this section does not ship." No placeholder quote, no "client stories coming soon" banner — full absence.
 
 ### Partial gating
-- **Trigger:** the case study clears review but the testimonial does not, or the reverse
-- **State:** render whichever child has cleared. A section holding one case study and no testimonial (or the reverse) is a legal, complete render — `PROOF-H2` ("Client work") already frames the section generically enough to cover either.
+- **Trigger:** some quote records clear review and others do not.
+- **State:** the carousel renders only the records that cleared. One cleared quote renders as a single quote with no carousel controls.
 
-### Multiple case studies or testimonials (future)
-- Not in scope for the current content register, which carries exactly one of each (`CASE-01`, `QUOTE-01`). If a second case study or testimonial is added later, this wrapper's `flex flex-col gap-2xl` already accommodates more children without restructuring — noted so a future content addition does not require a new layout family, only new data.
+### Multiple testimonials
+- **Superseded 2026-09-16, client-directed.** The register now carries six quote records rather than one, and they are presented as a carousel. See `testimonial-carousel.spec.md` and the OVERRIDDEN RULES note below.
+
+### Illustrative-quotation note
+- **Removed 2026-09-16, client-directed.** The client confirmed the quotes are real testimonials, so the note saying they are illustrative no longer renders.
 
 ## Per-State Content
 Covered above.
 
 ## Assets
-None at the wrapper level — assets belong to the two child components.
+None at the wrapper level — assets belong to the carousel and quote components.
 
 ## COPY
 
@@ -71,9 +78,8 @@ None at the wrapper level — assets belong to the two child components.
 |---|---|
 | `PROOF-H2` | Client work |
 
-This is the only slot this wrapper owns directly. `CASE-01-*` and `QUOTE-01-*`
-belong to `case-study-card.spec.md` and `testimonial-quote.spec.md`
-respectively and are listed there.
+This is the only slot this wrapper owns directly. `QUOTE-01-*` belongs to
+`testimonial-quote.spec.md` and is listed there.
 
 ## Responsive Behavior
 - **Desktop (1440px):** single centred column, capped at `52rem`
@@ -87,11 +93,18 @@ respectively and are listed there.
 |---|---|---|---|
 | Paper `PROOF-H2` on navy | 17.07:1 | `globals.css` derived | Pass |
 
-Remaining pairings belong to the two child components and are listed there.
+Remaining pairings belong to the carousel and quote components and are listed there.
 
 ## ANTI-SLOP CONSTRAINTS
 
-- **No fabricated case study or testimonial to avoid shipping an empty section.** Covered under States & Behaviors — this is the section where that failure would be most damaging, since `CONTENT.md` calls these the highest-liability slots on the site.
-- **No carousel across multiple testimonials** even once more than one exists. A single column that a reader scrolls past, per the layout family named above, not an auto-advancing slider repeating the hero's rejected mechanism in a different section.
+- **No fabricated testimonial to avoid shipping an empty section.** Covered under States & Behaviors — this is the section where that failure would be most damaging, since `CONTENT.md` calls these the highest-liability slots on the site.
+- ~~**No carousel across multiple testimonials.**~~ **OVERRIDDEN 2026-09-16, client-directed.** Recorded rather than deleted, because the original reasoning was sound about the hero and is worth not re-litigating.
+
+  What the rule was protecting against: `IA_CRITIQUE.md` item 2 rejects the reference site's three-slide hero carousel on the grounds that "a firm that states three things above the fold has stated nothing," plus the three-`<h1>` problem it shipped. This rule extended that to Proof.
+
+  Why the extension does not hold here: the hero argument is about the firm's OWN proposition, where rotation signals indecision. Six client quotes are not one proposition stated six ways; they are six different people, and a set is what a testimonial section actually is. The `<h1>` objection does not recur either, since this section has one `<h2>` and the quotes are `<blockquote>`, not headings.
+
+  What survives of the original concern, and is handled in `testimonial-carousel.spec.md`: auto-advance is a real cost when it moves content a reader is part-way through. Hence a 7s interval rather than the reference's, pause on hover and on focus, no autoplay at all under `prefers-reduced-motion`, and manual controls that reset the timer.
 - **No star rating, "5.0 average" figure, or review-aggregator badge.** Nothing in `CONTENT.md` supplies one, and a star rating with no sourced data behind it is a fabricated metric.
 - **No stock "team celebrating" photograph filling space beside the quote.** The words carry the section; no image is specified because none is needed and none is available uninvented.
+- **No static proof block above the carousel.** No case-study card, pull quote, or featured testimonial pinned over the rotating quotes. One format for client proof in this band.

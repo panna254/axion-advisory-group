@@ -16,7 +16,7 @@ export function ClosingCta() {
     <section id="cta" className="py-band-anchor">
       <div className="max-w-page mx-auto px-md">
         <div className="flex flex-col items-center text-center max-w-[42ch] mx-auto gap-md">
-          <h2 className="text-h2 font-display font-normal text-foreground">
+          <h2 className="text-h2 font-heading text-foreground">
             Start with a conversation about the numbers.
           </h2>
           <p className="text-lead text-muted-foreground">

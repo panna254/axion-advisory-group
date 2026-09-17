@@ -79,7 +79,7 @@ function ShieldMark({ mono, title, className }: ShieldMarkProps) {
  * always move together. Set the overall size with a font-size utility on
  * `className`, not by sizing the svg.
  *
- * Do not render below `text-base`. The wordmark is 1.65em, which puts AAG at
+ * Do not render below `text-body`. The wordmark is 1.65em, which puts AAG at
  * 26.4px when the root is 16px. On paper the wordmark is cyan-deep at 3.92:1,
  * which clears AA as large text (>=24px) but not as body text. Shrinking the
  * root below 1rem drops it under that line.
@@ -102,7 +102,7 @@ export function AagLogo({
 
   return (
     <span
-      className={cn("inline-flex items-center gap-[0.55em] text-base", className)}
+      className={cn("inline-flex items-center gap-[0.55em] text-body", className)}
     >
       <ShieldMark mono={mono} className="h-[2em] w-auto shrink-0" />
 
@@ -116,7 +116,7 @@ export function AagLogo({
         <span
           aria-hidden={variant === "full" ? true : undefined}
           className={cn(
-            "font-display text-[1.65em] leading-none font-normal tracking-wordmark",
+            "font-body text-[1.65em] leading-none font-normal tracking-wordmark",
             mono ? "text-current" : "text-logo-wordmark",
           )}
         >
@@ -126,7 +126,7 @@ export function AagLogo({
         {variant === "full" ? (
           <span
             className={cn(
-              "font-display text-[0.62em] leading-none font-semibold whitespace-nowrap tracking-lockup",
+              "font-body text-[0.62em] leading-none font-semibold whitespace-nowrap tracking-lockup",
               mono ? "text-current" : "text-logo-lockup",
             )}
           >

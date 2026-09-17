@@ -36,6 +36,8 @@ Featured work and testimonials do real work for an advisory firm, and the refere
 ### Purpose triptych — cut
 Mission, Vision, Values in three equal panels is the single most skippable block in consultancy web design. Nobody has ever chosen an advisor because of a vision statement. It is also a 3-equal-column card row, which the active taste skill bans outright under §9.C. If any of it survives, it survives as one clause inside the About copy.
 
+**Superseded 2026-09-16, client-directed.** The content ships as its own section, 8a, between Credibility and Proof. The objection to the form still binds: no three equal panels, no card row. See `components/mission-vision-values.spec.md`.
+
 ### Publications with empty tabs — cut until there is content
 The reference ships four category tabs over an empty-state message. This is worse than having no section: it advertises a content programme, then proves it is not running. Axion adds this when there is a second article to put in it, not before.
 
@@ -121,10 +123,10 @@ Neither buyer knows what a first engagement costs or commits them to. A short "h
 Layout family is noted per section to keep the page clear of the taste skill's repetition rules: no family repeats, and eight content sections carry at least four distinct families.
 
 1. **Sticky header** — five nav items on one line plus a single CTA, correcting the reference's missing conversion surface in permanently visible chrome. *(chrome)*
-2. **Hero** — one proposition, one H1, one primary and one secondary CTA, no carousel, because a firm that states three things above the fold has stated nothing. *(asymmetric split)*
+2. **Hero** — one proposition, one H1, one primary and one secondary CTA, no carousel, because a firm that states three things above the fold has stated nothing. *(full-bleed cinematic — was asymmetric split until the 2026-09-14 client-directed pivot; see `components/hero.spec.md`. Still distinct from item 9's full-width band, so the no-repeat rule above holds.)*
 3. **Buyer fork** — two labelled doors, funding-and-growth against risk-and-compliance, resolving the two-buyer problem at the earliest point it can be resolved. *(two-up, deliberately not a three-card row)*
 4. **Service clusters** — four grouped cells rather than seven tiles, with practice lines named inside and the clusters echoing the fork above. *(bento with uneven rhythm)*
-5. **How we work** — four stages answering "what do the next eight weeks look like", the objection the reference leaves standing. *(horizontal stepped sequence)*
+5. **How we work** — four stages answering "what do the next eight weeks look like", the objection the reference leaves standing. *(horizontal stepped sequence. Rewritten 2026-09-17 as six stages in two phases, each with its question, purpose, typical work, and output; layout family now a phased rubric on the same sequence track. See `components/approach.spec.md`.)*
 6. **About** — who the firm is, placed after the offer because the buyer arrives with a need, not curiosity about the firm. *(text-led with single portrait)*
 7. **Credibility and qualification** — registrations and figures in plain inline layout, no cards; fully gated on client input and cleanly removable. *(inline figure row)*
 8. **Proof** — case studies and testimonials in one discrete band, designed to be cut whole until content clears. *(quote-led, single column)*

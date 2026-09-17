@@ -4,7 +4,7 @@ import type { Service, ServiceSlug } from "@/types/service";
  * Data contract for the services section, per
  * `docs/research/components/services-data.spec.md`. Cluster membership here
  * mirrors `CONTENT.md` §5.1 and `IA_CRITIQUE.md` §3.2 exactly — both sources
- * agree, so this is the one written-down copy `ClusterCard` and
+ * agree, so this is the one written-down copy `ClusterRow` and
  * `PracticeLineRow` import from rather than re-deriving.
  */
 export type ClusterSlug = "growth" | "fund" | "protect" | "people";
@@ -54,18 +54,17 @@ export const CLUSTERS: readonly Cluster[] = [
  * matches `SERVICE_SLUGS` in `src/types/service.ts`, which is `BRAND.md`'s
  * own order, not a ranking.
  *
- * `legal-regulatory` carries `status: "NEEDS-CLIENT-INPUT"` on all three of
- * its text fields in the register — its name was obscured in the source
- * photo and is unconfirmed. `PracticeLineRow` must not render this entry
- * until the status flips to a publishable value (see `isPublishable` in
- * `src/types/content.ts`).
+ * `legal-regulatory` was `NEEDS-CLIENT-INPUT` and hidden until 2026-09-16,
+ * when its `DRAFT` copy moved here from the removed mock-content layer. Any
+ * line set back to `NEEDS-CLIENT-INPUT` is still filtered out by `ClusterRow`
+ * (see `isPublishable` in `src/types/content.ts`).
  */
 export const SERVICES: readonly Service[] = [
   {
     slug: "business-consultancy",
     name: "Business Consultancy",
     summary:
-      "Strategic planning, business development, and operations work for firms deciding where to put the next shilling.",
+      "Strategic planning, business development, and operations work, built on reading the revenue line by line.",
     detail:
       "We start with how the business actually earns, not how the org chart says it should. That means reading the revenue by line, costing the work properly, and finding where margin leaks. From there we rebuild the plan: what to grow, what to stop, and what to fix first. Strategic planning, business development, and operations work sit together because separating them is how plans end up on a shelf.",
     status: "APPROVED",
@@ -85,7 +84,7 @@ export const SERVICES: readonly Service[] = [
     slug: "training-hr",
     name: "Training & HR Services",
     summary:
-      "Staff development, HR consultancy, and capacity-building programmes, built around the roles you are actually hiring for.",
+      "Staff development, HR consultancy, and capacity-building programmes, judged on what the team can do afterwards.",
     detail:
       "Training goes wrong when it is bought by topic instead of by gap. We look at what the role has to deliver, what the person can do today, and what sits between the two. Then we design the programme against that, whether it runs in a session or over a quarter. The HR side covers contracts, structures, appraisal, and the paperwork that becomes a problem only when someone leaves. Capacity building is judged on what the team can do afterwards.",
     status: "APPROVED",
@@ -105,7 +104,7 @@ export const SERVICES: readonly Service[] = [
     slug: "risk-management",
     name: "Risk Management",
     summary:
-      "Risk assessment, mitigation strategy, and compliance work. We name the exposures that would actually stop the business.",
+      "Risk assessment, mitigation strategy, and compliance, delivered as a register your board can question.",
     detail:
       "A risk register is only useful if it is ranked and someone owns each line. We work through the exposures that would genuinely halt trading: concentration in one customer, a single supplier, key-person dependency, currency movement, and regulatory breach. Each one gets a likelihood, a cost, an owner, and a control. Compliance work follows the same order, starting with the obligations that carry penalties and moving down. You get a document your board can question.",
     status: "APPROVED",
@@ -117,16 +116,18 @@ export const SERVICES: readonly Service[] = [
     summary:
       "International expansion, market research, and regulatory readiness, so entry is a decision rather than a bet.",
     detail:
-      "Entering a new market costs most when the groundwork is skipped. We size the demand, price against who is already there, and work out what registration, licensing, and tax actually require before anything is committed. For firms coming into Kenya, that includes company registration, tax obligations, and sector licensing. For Kenyan firms going out, it means the same questions asked of the target market. The output is a written position on whether to enter, when, and at what cost.",
+      "Entering a new market costs most when the groundwork is skipped. We size the demand, price against who is already there, and work out what registration, licensing, and tax actually require before anything is committed. For firms coming into Kenya, that includes company registration, tax obligations, and sector licensing. For organisations going out, it means the same questions asked of the target market. The output is a written position on whether to enter, when, and at what cost.",
     status: "APPROVED",
     href: "#svc-market-entry",
   },
   {
     slug: "legal-regulatory",
     name: "Legal & Regulatory Advisory",
-    summary: "[CLIENT TO SUPPLY: scope of this practice line, once the name is confirmed.]",
-    detail: "[CLIENT TO SUPPLY: detail for this practice line, once the name is confirmed.]",
-    status: "NEEDS-CLIENT-INPUT",
+    summary:
+      "Regulatory readiness, compliance frameworks, and corporate governance for Kenyan commercial operations.",
+    detail:
+      "We guide firms through statutory registration, corporate filings, sector-specific licensing, and governance structuring. We establish compliance calendars, statutory audit coordination, and operational risk boundaries before legal exposure escalates.",
+    status: "DRAFT",
     href: "#svc-legal-regulatory",
   },
 ] as const;
@@ -135,13 +136,6 @@ export const SERVICES: readonly Service[] = [
 export const SERVICES_BY_SLUG: Readonly<Record<ServiceSlug, Service>> = Object.fromEntries(
   SERVICES.map((service) => [service.slug, service]),
 ) as Record<ServiceSlug, Service>;
-
-/**
- * Icon per practice line, re-exported from `icons.tsx` rather than
- * duplicated, so an eighth line (or `legal-regulatory` clearing gating) is a
- * type error here until it has an icon assigned there.
- */
-export { SERVICE_ICONS } from "@/components/icons";
 
 /**
  * `FORM-INTEREST-OPTIONS` mirrors these four cluster slugs exactly, per

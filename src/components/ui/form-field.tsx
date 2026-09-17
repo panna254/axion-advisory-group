@@ -56,7 +56,7 @@ function omitFieldProps<T extends BaseProps & { as?: string }>(
  * here that share a bare (unmodified) utility group.
  */
 const CONTROL_BASE = cn(
-  "w-full text-body font-sans text-foreground bg-card",
+  "w-full text-body font-body text-foreground bg-card",
   "border border-input rounded-lg px-sm py-xs",
   "transition-[border-color,box-shadow] duration-200 ease-[cubic-bezier(0.16,1,0.3,1)]",
   "hover:border-foreground",
@@ -122,18 +122,18 @@ export function FormField(props: FormFieldProps) {
 
   return (
     <div className="flex w-full flex-col gap-2xs">
-      <label htmlFor={id} className="text-caption font-sans font-medium text-foreground">
+      <label htmlFor={id} className="text-small font-body font-medium text-foreground">
         {label}
         {required ? <span className="text-muted-foreground"> (required)</span> : null}
       </label>
       {control}
       {helperText ? (
-        <p id={helperId} className="text-caption text-muted-foreground">
+        <p id={helperId} className="text-small text-muted-foreground">
           {helperText}
         </p>
       ) : null}
       {error ? (
-        <p id={errorId} className="flex items-start gap-2xs text-caption font-medium text-destructive">
+        <p id={errorId} className="flex items-start gap-2xs text-small font-medium text-destructive">
           <IconError size="sm" />
           <span>{error}</span>
         </p>

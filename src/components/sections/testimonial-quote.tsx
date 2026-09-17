@@ -1,38 +1,68 @@
+import type { Testimonial } from "@/types/testimonial";
+
 /**
- * TestimonialQuote — the second child of `ProofSection`.
+ * TestimonialQuote — one slide of `TestimonialCarousel`.
  *
- * Server Component: renders a quote plus its attribution (name, role and
- * company). Every field is currently `NEEDS-CLIENT-INPUT` — per
- * `CONTENT.md`'s zero-fabrication rule, this component returns `null` rather
- * than render a composite, anonymised, or placeholder testimonial when any
- * required field is missing. That is its normal state today.
+ * Presentation only: no state, no effects, no client boundary of its own. It
+ * is rendered inside a Client Component, so it travels in that bundle, but it
+ * stays a plain function of its props so the carousel owns all the behaviour
+ * and this file stays reviewable as a piece of typography.
+ *
+ * Still gated. `CONTENT.md`'s zero-fabrication rule applies per record, not
+ * per section: a quote missing its text or its attribution returns `null`
+ * rather than render an anonymous or half-attributed version, because
+ * permission to publish attaches to the attribution and not to the words
+ * alone. The carousel filters on the same condition, so a gated record is
+ * dropped from the slide count rather than becoming an empty slide.
  *
  * See `docs/research/components/testimonial-quote.spec.md` for the full
  * visual and behavioural contract this implements.
  */
 
 type TestimonialQuoteProps = {
-  quote?: string;
-  name?: string;
-  /** Role and company, already combined, e.g. "Finance Director, Company Name". */
-  role?: string;
+  testimonial: Testimonial;
 };
 
-export function TestimonialQuote({ quote, name, role }: TestimonialQuoteProps) {
-  if (!quote || !name || !role) {
+/** The condition the carousel filters on. Kept here so the two cannot drift. */
+export function isRenderableTestimonial(testimonial: Testimonial): boolean {
+  return Boolean(
+    testimonial.quote && testimonial.authorName && testimonial.authorRole
+  );
+}
+
+export function TestimonialQuote({ testimonial }: TestimonialQuoteProps) {
+  if (!isRenderableTestimonial(testimonial)) {
     return null;
   }
 
+  const { quote, authorName, authorRole, authorCompany, category } =
+    testimonial;
+
   return (
-    <figure>
+    <figure className="flex flex-col">
+      {category ? (
+        <p className="mb-md text-small font-body font-medium uppercase tracking-wide text-stroke-systems">
+          {category}
+        </p>
+      ) : null}
+
       <blockquote>
-        <p className="text-h3 font-display font-normal text-foreground max-w-[42ch]">
+        {/* No decorative quotation glyph and no italic: the blockquote
+            semantics and the shift to the serif already say "quotation".
+            See the spec's ANTI-SLOP CONSTRAINTS. */}
+        <p className="max-w-[42ch] text-h3 font-heading text-foreground">
           {quote}
         </p>
       </blockquote>
-      <figcaption className="mt-lg flex items-center gap-sm">
-        <p className="text-body font-sans font-semibold text-foreground">{name},</p>
-        <p className="text-body text-muted-foreground">{role}</p>
+
+      {/* No portrait. None is supplied, and none is invented. */}
+      <figcaption className="mt-lg">
+        <p className="text-body font-body font-semibold text-foreground">
+          {authorName}
+        </p>
+        <p className="text-body text-muted-foreground">
+          {authorCompany ? `${authorRole}, ${authorCompany}` : authorRole}
+        </p>
       </figcaption>
     </figure>
   );

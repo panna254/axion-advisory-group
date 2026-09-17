@@ -52,7 +52,8 @@ These override the `design-taste-frontend` skill's 8 / 6 / 4 baseline for every 
 - Wordmark: AAG — geometric sans, letterspaced, cyan.
 - Lockup: AXION ADVISORY GROUP — geometric sans, crimson, letterspaced.
 - Tagline: "Your Partner For Business Group" — UNCONFIRMED, likely a typo for "Growth". Treat as literal until I say otherwise.
-- Type direction: geometric sans display (Space Grotesk) plus a neutral grotesque for UI (Inter).
+- Type direction: Merriweather for headings, Source Sans 3 for body and UI. Editorial authority from the serif, corporate clarity from the sans. Merriweather is used selectively for hierarchy (h1–h4 and the occasional editorial card title or pull quote) and is kept off navigation, buttons, forms, tables, metadata and all numeric display.
+- The wordmark and lockup run in Source Sans 3, not the serif. The identity is specified above as letterspaced sans and the logo sits inside the navbar, which is sans throughout.
 
 ---
 

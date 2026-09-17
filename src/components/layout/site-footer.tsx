@@ -8,6 +8,7 @@ import {
   type IconComponent,
 } from "@/components/icons";
 import { CLUSTERS } from "@/lib/services-data";
+import { telHref } from "@/lib/utils";
 
 /* ---------------------------------------------------------------------------
    SiteFooter — section 11, layout family `grid-4`.
@@ -42,14 +43,14 @@ export interface SiteFooterProps {
 }
 
 const HEADING_CLASSES =
-  "text-caption font-sans font-medium uppercase tracking-wide text-muted-foreground mb-sm";
+  "text-small font-body font-medium uppercase tracking-wide text-muted-foreground mb-sm";
 
 const LINK_TRANSITION_CLASSES =
   "transition-colors duration-200 active:translate-y-px focus-visible:outline-none focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
 const LINK_CLASSES = `text-body text-foreground hover:text-action-text ${LINK_TRANSITION_CLASSES}`;
 
-const PRIVACY_LINK_CLASSES = `text-caption text-action-text hover:underline ${LINK_TRANSITION_CLASSES}`;
+const PRIVACY_LINK_CLASSES = `text-small text-action-text hover:underline ${LINK_TRANSITION_CLASSES}`;
 
 const ENTITY_PLACEHOLDER = "[CLIENT TO SUPPLY: registered entity name]";
 const YEAR_PLACEHOLDER = "[CLIENT TO SUPPLY: year]";
@@ -71,6 +72,8 @@ interface ContactEntry {
   key: string;
   Icon: IconComponent;
   text: string;
+  /** `tel:` or `mailto:` target. Absent renders the entry as plain text. */
+  href?: string;
 }
 
 export function SiteFooter({
@@ -83,8 +86,12 @@ export function SiteFooter({
 }: SiteFooterProps) {
   const contactEntries: ContactEntry[] = [
     address ? { key: "address", Icon: IconAddress, text: address } : null,
-    phone ? { key: "phone", Icon: IconPhone, text: phone } : null,
-    email ? { key: "email", Icon: IconEmail, text: email } : null,
+    phone
+      ? { key: "phone", Icon: IconPhone, text: phone, href: telHref(phone) }
+      : null,
+    email
+      ? { key: "email", Icon: IconEmail, text: email, href: `mailto:${email}` }
+      : null,
   ].filter((entry): entry is ContactEntry => entry !== null);
 
   const legalLine = `© ${entityName ?? ENTITY_PLACEHOLDER} ${copyrightYear ?? YEAR_PLACEHOLDER}. All rights reserved.`;
@@ -96,7 +103,7 @@ export function SiteFooter({
           <div className="col-span-2 lg:col-span-1">
             <AagLogo variant="full" />
             <p className="text-body text-muted-foreground mt-sm max-w-[32ch]">
-              Business and financial advisory for Kenyan firms.
+              Business and financial advisory for organisations.
             </p>
           </div>
 
@@ -130,10 +137,16 @@ export function SiteFooter({
             <p className={HEADING_CLASSES}>Contact</p>
             <ul className="flex flex-col gap-xs">
               {contactEntries.length > 0 ? (
-                contactEntries.map(({ key, Icon, text }) => (
+                contactEntries.map(({ key, Icon, text, href }) => (
                   <li key={key} className="flex items-start gap-xs">
                     <Icon size="sm" className="text-stroke-systems shrink-0" />
-                    <span className="text-body text-foreground">{text}</span>
+                    {href ? (
+                      <a href={href} className={`wrap-anywhere ${LINK_CLASSES}`}>
+                        {text}
+                      </a>
+                    ) : (
+                      <span className="text-body text-foreground">{text}</span>
+                    )}
                   </li>
                 ))
               ) : (
@@ -149,9 +162,9 @@ export function SiteFooter({
 
         <div className="mt-2xl flex flex-col items-center justify-between gap-sm border-t border-border pt-lg sm:flex-row">
           <div className="flex flex-col items-center gap-2xs sm:flex-row sm:gap-sm">
-            <p className="text-caption text-muted-foreground">{legalLine}</p>
+            <p className="text-small text-muted-foreground">{legalLine}</p>
             {registrationNumber ? (
-              <p className="text-caption text-muted-foreground">
+              <p className="text-small text-muted-foreground">
                 {registrationNumber}
               </p>
             ) : null}

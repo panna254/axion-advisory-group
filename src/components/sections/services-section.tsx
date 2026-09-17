@@ -1,45 +1,34 @@
-import type { Service, ServiceSlug } from "@/types/service";
 import { CLUSTERS } from "@/lib/services-data";
 
-import { ClusterCard } from "./cluster-card";
-
-export interface ServicesSectionProps {
-  servicesBySlug?: Readonly<Record<ServiceSlug, Service>>;
-}
+import { ClusterRow } from "./cluster-row";
 
 /**
- * Section 4, "What we do". Bento layout with uneven rhythm: seven practice
- * lines group into four `ClusterCard`s rather than one seven-tile grid. The
- * grid footprint itself is a regular 2x2 (1-up on mobile) — the unevenness
- * lives inside each card, where `ClusterCard` renders one or two
- * `PracticeLineRow`s depending on how many of its lines are publishable.
+ * Section 4, "What we do". A ruled practice index: seven practice lines
+ * group into four clusters, and each cluster is one full-width row with its
+ * name and reason on the left and its practice lines on the right. The
+ * clusters are deliberately uneven (one or two lines), and rows simply take
+ * the height their content needs, so there is no grid cell left half empty.
  *
  * Server Component.
  *
  * See `docs/research/components/services-section.spec.md` for the full
  * contract.
  */
-export function ServicesSection({ servicesBySlug }: ServicesSectionProps = {}) {
+export function ServicesSection() {
   return (
     <section id="services" className="py-band">
       <div className="max-w-page mx-auto px-md">
-        <div className="max-w-[42ch] mb-xl">
-          <h2 className="mb-sm text-h2 font-display font-normal text-foreground">
-            What we do
-          </h2>
-          <p className="text-lead text-muted-foreground">
-            Seven practice lines in four groups. Each line is scoped on its
-            own, and they can be combined in one engagement.
+        <div className="mb-2xl">
+          <h2 className="mb-sm text-h2 text-foreground">What we do</h2>
+          <p className="max-w-[56ch] text-pretty text-lead text-muted-foreground">
+            Each practice line is scoped on its own, and several can be
+            combined in one engagement.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-lg">
+        <div className="border-b border-border">
           {CLUSTERS.map((cluster) => (
-            <ClusterCard
-              key={cluster.slug}
-              cluster={cluster}
-              servicesBySlug={servicesBySlug}
-            />
+            <ClusterRow key={cluster.slug} cluster={cluster} />
           ))}
         </div>
       </div>

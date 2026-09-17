@@ -45,6 +45,7 @@ export type SectionId =
   | "approach"
   | "about"
   | "credibility"
+  | "values"
   | "proof"
   | "cta"
   | "contact"
@@ -62,14 +63,17 @@ export interface PageSection {
  * It satisfies the two sequencing rules stated in `globals.css`:
  *
  *   1. Never more than two consecutive `standard` bands. `fork` and `services`
- *      are one such pair; `about` and `contact` each stand alone. Note that
+ *      are one such pair; `about`, `values` and `contact` each stand alone,
+ *      because `credibility` (tight) separates the first two. Note that
  *      `fork` cannot itself be the tight band that would otherwise cap that
  *      pair early: it sits directly after `hero`'s anchor band, and rule 2
  *      forbids a tight band there. `approach`, immediately after `services`,
- *      is the section that breaks the run instead — it reads as a coda to
- *      `services` ("what we do", then "how that work runs"), so a tight band
- *      suits it on its own terms, not only to satisfy this rule. See
- *      `docs/research/components/approach.spec.md` for the full reasoning.
+ *      is the section that breaks the run instead. Since the 2026-09-17
+ *      six-stage rewrite it is no longer a short coda, so the tight band is
+ *      now held by this rule rather than by its size: as `standard` it would
+ *      run fork, services and approach three deep. The rule under the
+ *      services index and approach's own phase rules carry the separation.
+ *      See `docs/research/components/approach.spec.md`.
  *   2. A `tight` band never directly follows an `anchor` band. `approach`
  *      follows `services` (standard), `credibility` follows `about`
  *      (standard), and `footer` follows `contact` (standard) — never `hero`,
@@ -85,6 +89,7 @@ export const HOMEPAGE_RHYTHM: readonly PageSection[] = [
   { id: "approach", band: "tight", surface: "paper" },
   { id: "about", band: "standard", surface: "paper" },
   { id: "credibility", band: "tight", surface: "paper" },
+  { id: "values", band: "standard", surface: "paper" },
   { id: "proof", band: "anchor", surface: "navy" },
   { id: "cta", band: "anchor", surface: "paper" },
   { id: "contact", band: "standard", surface: "paper" },

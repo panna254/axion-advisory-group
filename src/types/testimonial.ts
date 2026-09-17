@@ -1,7 +1,23 @@
 import type { ContentStatus } from "./content";
 
 /**
- * Testimonials and case studies are the highest-liability slots on this site.
+ * The engagement a quote came out of, rendered as the eyebrow above it.
+ *
+ * Deliberately a closed union rather than free text. The label is there to
+ * give the reader a frame ("this one is about operations"), not to let each
+ * quote carry its own tagline, and a closed set keeps the carousel from
+ * drifting into six differently-worded category labels.
+ */
+export type TestimonialCategory =
+  | "Strategy"
+  | "Operations"
+  | "Growth"
+  | "Transformation"
+  | "Leadership"
+  | "Advisory";
+
+/**
+ * Testimonials are the highest-liability slots on this site.
  *
  * `CONTENT.md`: "No composite clients, no anonymised-but-plausible outcomes,
  * no illustrative figures. If the client supplies nothing, this section does
@@ -19,6 +35,8 @@ export interface Testimonial {
   /** `QUOTE-01-ROLE`. Role and company. */
   authorRole: string;
   authorCompany?: string;
+  /** Optional eyebrow. A quote with no category simply renders without one. */
+  category?: TestimonialCategory;
   status: ContentStatus;
   /**
    * Written permission to publish the quote and to name the person.
@@ -26,26 +44,5 @@ export interface Testimonial {
    * separate flag from status on purpose: sign-off on the wording and
    * permission to publish are two different things.
    */
-  permissionOnFile: boolean;
-}
-
-/**
- * A named piece of client work. Same liability rules as a testimonial, plus
- * separate written permission to name the client at all.
- */
-export interface CaseStudy {
-  id: string;
-  /** `CASE-01-CLIENT`. Requires written permission to name. */
-  client: string;
-  /** `CASE-01-SECTOR`. */
-  sector: string;
-  /** `CASE-01-PROBLEM`. The problem as the client described it, not as we frame it. */
-  problem: string;
-  /**
-   * `CASE-01-OUTCOME`. Measured. Figures must be ones the client will stand
-   * behind, in KES where currency applies.
-   */
-  outcome: string;
-  status: ContentStatus;
   permissionOnFile: boolean;
 }

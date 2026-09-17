@@ -1,40 +1,49 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Merriweather, Source_Sans_3 } from "next/font/google";
 
 import "./globals.css";
 
 /* ---------------------------------------------------------------------------
    Type.
 
-   BRAND.md sets the direction: geometric sans display (Space Grotesk) plus a
-   neutral grotesque for UI (Inter).
+   BRAND.md sets the direction: Merriweather for headings, Source Sans 3 for
+   body and UI. The intent is editorial authority plus corporate clarity —
+   the serif carries hierarchy, the sans carries the interface.
 
-   Space Grotesk carries display, including the AAG wordmark and the AXION
-   ADVISORY GROUP lockup — both letterspaced, per BRAND.md's identity block.
-   Google Fonts ships it in weight 300-700, upright only; there is no italic
-   style, so nothing in this project uses `italic` on `font-display` text (see
-   `testimonial-quote.tsx`, the one place that used to).
+   Merriweather is used SELECTIVELY: h1-h4 and the small number of non-heading
+   elements that are genuinely editorial (a pull quote, a card title). It is
+   deliberately kept off navigation, buttons, forms, tables, metadata and any
+   numeric display. A serif in those places is what makes a corporate site
+   read as a blog. See `--font-heading` in globals.css for the binding rule.
 
-   Inter carries UI: nav, body copy, form fields, captions.
+   Source Sans 3 carries everything else, which on this site is most things.
 
-   Weights are explicit rather than variable, to keep the payload honest:
-   display 400 and 600, UI 400/500/600. Both display weights already match
-   every `font-display` usage in the codebase (`font-normal` / `font-semibold`
-   Tailwind classes), so the type-scale layer needed no changes for the swap.
+   Weights are explicit rather than variable, to keep the payload honest, and
+   are exactly the ones the type scale asks for:
+     Merriweather   500 (h3) / 600 (h2) / 700 (h1)
+     Source Sans 3  400 (body, small) / 500 / 600 / 700
+
+   Both are loaded through `next/font/google`, which self-hosts the files,
+   emits no render-blocking external stylesheet, and generates a size-adjusted
+   local fallback so the swap does not shift layout. `display: "swap"` keeps
+   text visible during the (already brief) load.
+
+   Neither family is loaded in italic. Merriweather ships a true italic, but
+   the design does not use it — see the anti-slop note in `globals.css` §3.
 --------------------------------------------------------------------------- */
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const merriweather = Merriweather({
+  variable: "--font-merriweather",
   subsets: ["latin"],
-  weight: ["400", "600"],
+  weight: ["500", "600", "700"],
   style: ["normal"],
   display: "swap",
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const sourceSans = Source_Sans_3({
+  variable: "--font-source-sans-3",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
   style: ["normal"],
   display: "swap",
 });
@@ -56,7 +65,7 @@ export const metadata: Metadata = {
   title: "Axion Advisory Group · Business & Financial Advisory, Kenya",
   // META-DESC, budget 155
   description:
-    "Business consultancy, financial management, risk, financing, training, and market entry advisory for Kenyan firms. Based in Nairobi.",
+    "Business consultancy, financial management, risk, financing, training, and market entry advisory for organisations. Based in Nairobi.",
   applicationName: "Axion Advisory Group",
   icons: {
     icon: [
@@ -74,7 +83,7 @@ export const metadata: Metadata = {
     locale: "en_KE",
     title: "Axion Advisory Group · Business & Financial Advisory, Kenya",
     description:
-      "Business consultancy, financial management, risk, financing, training, and market entry advisory for Kenyan firms. Based in Nairobi.",
+      "Business consultancy, financial management, risk, financing, training, and market entry advisory for organisations. Based in Nairobi.",
     url: "/",
     images: [
       {
@@ -90,7 +99,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Axion Advisory Group · Business & Financial Advisory, Kenya",
     description:
-      "Business consultancy, financial management, risk, financing, training, and market entry advisory for Kenyan firms. Based in Nairobi.",
+      "Business consultancy, financial management, risk, financing, training, and market entry advisory for organisations. Based in Nairobi.",
     images: ["/seo/og.png"],
   },
 };
@@ -113,7 +122,7 @@ export default function RootLayout({
        page mode. See the token header in globals.css. */
     <html
       lang="en-KE"
-      className={`${spaceGrotesk.variable} ${inter.variable} h-full antialiased`}
+      className={`${merriweather.variable} ${sourceSans.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">{children}</body>
     </html>

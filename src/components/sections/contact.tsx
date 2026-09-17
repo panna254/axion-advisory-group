@@ -6,6 +6,7 @@ import { IconAddress, IconHours, IconPhone } from "@/components/icons";
 import { CtaButton } from "@/components/ui/cta-button";
 import { FormField } from "@/components/ui/form-field";
 import { INTEREST_OPTIONS } from "@/lib/services-data";
+import { telHref } from "@/lib/utils";
 
 /**
  * Contact — Section 10, asymmetric split (info ~42% / form ~58%).
@@ -156,7 +157,7 @@ export function Contact({
       <div className="max-w-page mx-auto px-md">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-2xl items-start">
           <div className="lg:col-span-5">
-            <h2 className="text-h2 font-display font-normal text-foreground mb-lg">
+            <h2 className="text-h2 font-heading text-foreground mb-lg">
               Contact
             </h2>
             {hasInfoLines ? (
@@ -170,7 +171,12 @@ export function Contact({
                 {phone ? (
                   <li className="flex items-start gap-sm">
                     <IconPhone size="md" className="text-stroke-systems" />
-                    <span className="text-body text-foreground">{phone}</span>
+                    <a
+                      href={telHref(phone)}
+                      className="text-body text-foreground transition-colors duration-200 hover:text-action-text active:translate-y-px focus-visible:outline-none focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    >
+                      {phone}
+                    </a>
                   </li>
                 ) : null}
                 {hours ? (
@@ -186,7 +192,7 @@ export function Contact({
           <div className="lg:col-span-7">
             {status === "success" ? (
               <div role="status">
-                <p className="text-h3 font-display">
+                <p className="text-h3 font-heading">
                   Received. We will reply to the email address you gave.
                 </p>
                 {slaText ? (
@@ -279,7 +285,7 @@ export function Contact({
                     </div>
                     <div className="sm:col-span-2">
                       {formLive ? (
-                        <p className="text-caption text-muted-foreground">
+                        <p className="text-small text-muted-foreground">
                           {consentText}
                         </p>
                       ) : (

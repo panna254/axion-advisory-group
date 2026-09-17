@@ -1,7 +1,7 @@
 # Services Data Specification
 
 Not a visual spec. This is the data contract `services-section.spec.md`,
-`cluster-card.spec.md`, and `practice-line-row.spec.md` all read from, kept in
+`cluster-row.spec.md`, and `practice-line-row.spec.md` all read from, kept in
 one place so cluster membership is decided once rather than re-derived per
 component. Mirrors `CONTENT.md` §5.1's cluster table and `src/types/service.ts`'s
 `ServiceSlug` union exactly — this file does not introduce any slug, cluster,
@@ -29,9 +29,10 @@ copy for components to import.
 
 ## Gating
 
-`legal-regulatory` carries `status: "needs-client-input"` (see
-`src/types/service.ts` and `src/types/content.ts` for the `ContentStatus`
-union this should satisfy). Every other slug is `"approved"` at the name
+`legal-regulatory` carried `status: "needs-client-input"` until 2026-09-16,
+when its copy moved in from the removed mock-content layer and it became
+`DRAFT` (see `src/types/service.ts` and `src/types/content.ts` for the
+`ContentStatus` union). The other six slugs are `"approved"` at the name
 level — `SVC-0n-NAME` values are the client's own material — even though the
 summary and detail copy attached to each one is separately `DRAFT` in the
 content register. **The gate that matters for rendering is the slug's own
@@ -39,29 +40,18 @@ content register. **The gate that matters for rendering is the slug's own
 `NEEDS-CLIENT-INPUT` copy does not.
 
 `practice-line-row.spec.md` reads this field to decide whether to render the
-row at all. `cluster-card.spec.md` never checks it directly — it renders
-whatever rows resolve and lets its `h-full` layout absorb the count
-difference.
+row at all. `cluster-row.spec.md` never checks it directly — it renders
+whatever rows resolve, and the cluster row takes whatever height that needs.
 
 ## Icon assignment
 
-Reference only — the authoritative mapping is `SERVICE_ICONS` in
-`src/components/icons.tsx`, already implemented:
-
-| Slug | Icon |
-|---|---|
-| `business-consultancy` | `IconBusinessConsultancy` (Strategy) |
-| `financial-management` | `IconFinancialManagement` (ChartLineUp) |
-| `training-hr` | `IconTrainingHr` (UsersThree) |
-| `loans-financing` | `IconLoansFinancing` (HandCoins) |
-| `risk-management` | `IconRiskManagement` (Gauge) |
-| `market-entry` | `IconMarketEntry` (GlobeHemisphereEast) |
-| `legal-regulatory` | `IconLegalRegulatory` (Scales) |
-
-No component should hardcode an icon per slug independently of
-`SERVICE_ICONS` — importing the map keeps a future eighth practice line (or a
-resolved `legal-regulatory`) a type error until it has an icon, per
-`icons.tsx`'s own comment on that map.
+None. Removed 2026-09-16 in the anti-slop pass on the services section: the
+practice-line names are the client's own and already say what each line is,
+so a glyph beside each one only repeated the name and cost a column of width
+on phones. `SERVICE_ICONS` and the seven service glyphs were deleted from
+`src/components/icons.tsx` with it. If a future surface (a service detail page,
+for example) needs per-line glyphs, restore them from git history rather than
+redrawing them.
 
 ## Hrefs
 
@@ -89,7 +79,7 @@ and `contact.spec.md` is responsible for mapping between the two.
 
 ## What this file does not decide
 
-Visual treatment (`cluster-card.spec.md`, `practice-line-row.spec.md`), the
+Visual treatment (`cluster-row.spec.md`, `practice-line-row.spec.md`), the
 section wrapper and grid (`services-section.spec.md`), and the actual
 `SVC-0n-SUMMARY` / `SVC-0n-DETAIL` copy (`CONTENT.md` §5.2, quoted inline by
 `practice-line-row.spec.md`'s consuming builder, not restated in this file).

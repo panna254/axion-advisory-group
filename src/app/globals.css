@@ -232,66 +232,137 @@
 
 /* ===========================================================================
    3. TYPE SCALE
-   Two ratios, interpolated by clamp(). Minor third (1.200) on a 360px
-   viewport, perfect fourth (1.333) at 1440px, base 16px -> 18px.
-   Rationale in full sits in the commit message; the short version is that a
-   perfect fourth on a 360px Android screen throws the hero headline past two
-   lines, and a minor third at desktop is too flat to give the display face a
-   moment. Interpolating between the two gets both.
+
+   Six semantic steps, fluid between a 360px viewport and 1440px. The
+   endpoints ARE the design system's published mobile and desktop values, so
+   `text-h1` is exactly 30px on a 360px phone and exactly 40px from 1440px up,
+   interpolating in between rather than jumping at a breakpoint.
+
+     step   mobile  desktop  line-height  weight  family
+     h1     30px    40px     1.2          700     Merriweather
+     h2     24px    32px     1.3          600     Merriweather
+     h3     20px    26px     1.3          500     Merriweather
+     lead   18px    21px     1.5          400     Source Sans 3
+     body   16px    18px     1.6          400     Source Sans 3
+     small  13px    14px     1.4          400     Source Sans 3
+
+   THE HERO HEADLINE IS h1. There is no step above it. The previous scale had
+   a `display` step that ran to 75.79px and the hero was the only thing using
+   it; the size is now 40px at desktop, by design. h1 is meant to read as
+   authoritative, not oversized.
+
+   `lead` is the one step not in the published table. It is an intro-paragraph
+   size, not a heading: it exists because the desktop gap between body (18px)
+   and h3 (26px) is too wide to carry a hero subtext or a section standfirst.
+   It is set in the BODY face at body weight for exactly that reason, and it
+   is not a heading step. Do not put Merriweather on it.
+
+   Weight and leading ride on the size token — Tailwind v4 reads
+   `--text-*--font-weight` and `--text-*--line-height` off the font-size
+   utility — so `text-h2` alone produces the right size, leading AND weight.
+   Do not put a `font-normal` / `font-semibold` class next to a scale step
+   unless you specifically mean to override the system. The old scale carried
+   no weights, so every heading in the codebase had to restate `font-normal`;
+   those are gone now, and re-adding one silently defeats the hierarchy.
 
    Every clamp carries a rem term, so browser zoom still scales the text.
 
+   FLOOR: `small` is the smallest step — 13px on a phone, 14px from 1440px up.
+   No component may set a font size outside this scale.
+
+   Worth re-examining, for whoever touches this next: `small` carries form
+   labels, validation errors and helper text as well as disclaimers and
+   footnotes, and 13px sentence-case text on a phone is at the edge of
+   comfortable for that first group. If it shows up in testing, the fix is to
+   raise this step's lower bound to 0.875rem so it is 14px at every width. That
+   is a one-line change here with no call-site churn. Do not special-case the
+   form instead.
+
+   ONE EXEMPTION to the scale: the identity lockup in `AagLogo`. Its `1.65em`
+   wordmark and `0.62em` lockup are ratios internal to the mark, not sizes, and
+   they scale off whatever font size the caller sets — which is how the mark
+   and the type stay locked together. A logotype is a graphic, so the reading
+   floor does not bind it. Resize the logo by changing the font size on the
+   element, never by editing those two em values: that redraws the identity.
+
    Usage:
-     display  one moment per page, at most. Closing CTA or a single figure.
-     h1       hero headline only.
-     h2       section headlines.
-     h3       sub-headlines, large card titles.
-     lead     hero subtext, card titles, intro paragraphs.
-     body     everything else.
-     caption  labels, footnotes, form helper text.
+     h1     hero headline, and the page title on a secondary page.
+     h2     section headlines.
+     h3     sub-headlines, card titles, pull quotes.
+     lead   hero subtext, section standfirsts, intro paragraphs.
+     body   everything else.
+     small  labels, metadata, footnotes, form helper and error text, legal.
    =========================================================================== */
 
 @theme {
-  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  /* Merriweather carries hierarchy: h1-h4, plus the few non-heading elements
+     that are genuinely editorial (a pull quote, a card title). Georgia is the
+     first fallback because its x-height and width are the closest of the
+     common system serifs, so a swap is quiet rather than a reflow.
+
+     KEEP IT OFF navigation, buttons, forms, tables, metadata and anything
+     numeric. A serif in the interface is what makes a corporate site read as
+     a blog, and it is the single easiest way to undo this type system.
+
+     No italic is loaded. Merriweather ships a true italic and the design does
+     not use it: italic serif at these sizes reads as editorial pastiche. The
+     pull quote in `testimonial-quote.tsx` runs upright and lets the
+     `<blockquote>` semantics and the size carry the quotation. */
+  --font-heading: var(--font-merriweather), Georgia, "Times New Roman", serif;
+
+  /* Source Sans 3 carries the interface, which on this site is most of it. */
+  --font-body: var(--font-source-sans-3), ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  /* Tailwind's built-in `font-sans`, and any shadcn primitive that reaches for
+     it, resolve to the body face. One sans on the page, never two. */
+  --font-sans: var(--font-body);
+
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-  /* step -1  13.33 -> 13.50 */
-  --text-caption: clamp(0.8331rem, 0.8296rem + 0.0157vw, 0.8438rem);
-  --text-caption--line-height: 1.4;
-  --text-caption--letter-spacing: 0.01em;
+  /* small   13 -> 14 */
+  --text-small: clamp(0.8125rem, 0.7917rem + 0.0926vw, 0.875rem);
+  --text-small--line-height: 1.4;
+  --text-small--font-weight: 400;
 
-  /* step 0   16.00 -> 18.00 */
+  /* body    16 -> 18 */
   --text-body: clamp(1rem, 0.9583rem + 0.1852vw, 1.125rem);
   --text-body--line-height: 1.6;
+  --text-body--font-weight: 400;
 
-  /* step 1   19.20 -> 24.00 */
-  --text-lead: clamp(1.2rem, 1.1rem + 0.4444vw, 1.5rem);
+  /* lead    18 -> 21   (extension, body face - see the header) */
+  --text-lead: clamp(1.125rem, 1.0625rem + 0.2778vw, 1.3125rem);
   --text-lead--line-height: 1.5;
+  --text-lead--font-weight: 400;
 
-  /* step 2   23.04 -> 32.00 */
-  --text-h3: clamp(1.44rem, 1.2533rem + 0.8296vw, 2rem);
-  --text-h3--line-height: 1.25;
-  --text-h3--letter-spacing: -0.01em;
+  /* h3      20 -> 26 */
+  --text-h3: clamp(1.25rem, 1.125rem + 0.5556vw, 1.625rem);
+  --text-h3--line-height: 1.3;
+  --text-h3--font-weight: 500;
 
-  /* step 3   27.65 -> 42.65 */
-  --text-h2: clamp(1.7281rem, 1.4156rem + 1.3889vw, 2.6656rem);
-  --text-h2--line-height: 1.18;
-  --text-h2--letter-spacing: -0.015em;
+  /* h2      24 -> 32 */
+  --text-h2: clamp(1.5rem, 1.3333rem + 0.7407vw, 2rem);
+  --text-h2--line-height: 1.3;
+  --text-h2--font-weight: 600;
+  --text-h2--letter-spacing: -0.005em;
 
-  /* step 4   33.18 -> 56.85  - the hero headline lives here */
-  --text-h1: clamp(2.0738rem, 1.5806rem + 2.1917vw, 3.5531rem);
-  --text-h1--line-height: 1.12;
-  --text-h1--letter-spacing: -0.02em;
+  /* h1      30 -> 40 */
+  --text-h1: clamp(1.875rem, 1.6667rem + 0.9259vw, 2.5rem);
+  --text-h1--line-height: 1.2;
+  --text-h1--font-weight: 700;
+  --text-h1--letter-spacing: -0.01em;
 
-  /* step 5   39.81 -> 75.79 */
-  --text-display: clamp(2.4881rem, 1.7385rem + 3.3315vw, 4.7369rem);
-  --text-display--line-height: 1.1;
-  --text-display--letter-spacing: -0.022em;
+  /* Tracking is deliberately near-zero everywhere except the identity below.
+     h1 and h2 are nudged in by a hair because Merriweather sets wide by
+     design and a 40px headline benefits from it; h3, lead, body and small run
+     at the face's natural spacing. Uppercase labels take `tracking-wide`
+     (0.025em) at the call site and nothing more. Do not reach for 0.1em on
+     running text — wide tracking on body copy is a reliable tell, and it
+     hurts reading speed. */
 
-  /* Line heights on h1 and display are held at 1.12 and 1.10 — roomy enough
-     that a descender (y g j p q) on the longest word never clips, without
-     needing a per-element pb-1 reserve. */
+  /* ADDING OR RENAMING A STEP? Also register it in the `font-size` class group
+     in `src/lib/utils.ts`. tailwind-merge cannot tell a custom `text-*` size
+     from a `text-*` colour on its own, and an unregistered step is silently
+     dropped by `cn()` wherever a colour class sits beside it. */
 
   /* Identity tracking. BRAND.md: wordmark and lockup are both letterspaced. */
   --tracking-wordmark: 0.1em;
@@ -339,6 +410,11 @@
   --spacing-band-tight: clamp(2.5rem, 2rem + 2.2222vw, 4rem); /* 40 -> 64 */
   --spacing-band: clamp(4rem, 3rem + 4.4444vw, 7rem); /* 64 -> 112 */
   --spacing-band-anchor: clamp(6rem, 4.5rem + 6.6667vw, 10.5rem); /* 96 -> 168 */
+
+  /* Site header height, fixed at every breakpoint and in both scroll states.
+     One value so the bar (`h-header`), the hero that sits beneath it on the
+     homepage (`pt-header`), and the mobile menu sheet's top row all agree. */
+  --spacing-header: 4.5rem; /* 72 */
 
   /* Gutters and measure */
   --container-page: 78rem; /* 1248px outer content rail */
@@ -408,6 +484,137 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* ===========================================================================
+   6. HERO ENTRANCE MOTION
+   One cinematic load-in, once, on the full-bleed hero only — 2026-09-14
+   pivot, see hero.spec.md. MOTION_INTENSITY 4 permits it; the global
+   prefers-reduced-motion rule in `@layer base` below collapses every
+   duration here to near-zero when requested, same as everywhere else on the
+   site, so no per-element opt-out is needed.
+   =========================================================================== */
+
+@keyframes hero-bg-in {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes hero-overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes hero-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===========================================================================
+   7. HEADER GLASS
+   The one translucent material on the site: the header bar and the mobile
+   menu sheet. Navy, because BRAND.md makes navy the colour of the header.
+   It behaves like smoked architectural glass, not a frosted card: a navy tint
+   carries the contrast, and the blur only softens what passes underneath.
+   No saturate() boost: it turned the crimson hero CTA into a neon halo as it
+   scrolled under the bar.
+
+   Why this lives here rather than in utilities: the material has three
+   densities, two scroll states and two fallbacks, and every one of them has
+   to agree. Written once, it reads as a single decision.
+
+   DENSITIES (navy tint over whatever is behind)
+     top     38%  blur 10px  homepage only, at rest over the hero photograph
+     raised  92%  blur 16px  scrolled, and every page without a hero
+     sheet   95%  blur 16px  mobile menu, which must stay legible over a scrim
+
+   CONTRAST. Text never depends on the blur. `top` was measured against the
+   brightest region of the hero image under the nav, after the hero's own
+   gradient scrim: paper nav text at 80% opacity measured 7.1:1, the cyan
+   wordmark 6.3:1. `raised` is 92% rather than lower because navy glass over
+   paper lightens toward slate; at 92% it still reads as the brand navy.
+
+   ELEVATION. The scrolled bar carries the site's only box-shadow: a single
+   ink-tinted shadow with a negative spread, so it reads as depth under the
+   glass, not a floating card. Every other surface still uses a hairline and a
+   tint step, per `cta-button.spec.md`.
+
+   PERFORMANCE. One blurred element at a time (the sheet covers the bar while
+   the menu is open). Only tint, edge, shadow and blur radius transition, all
+   compositor-friendly on a 72px strip.
+
+   FALLBACKS
+     no backdrop-filter          tint rises so text never sits on sharp detail
+     prefers-reduced-transparency solid navy, no blur
+     prefers-reduced-motion       the global rule in `@layer base` collapses
+                                  the transitions below
+   =========================================================================== */
+
+@layer components {
+  .glass-navy {
+    --glass-tint: 92%;
+    --glass-blur: 16px;
+    --glass-edge: 9%;
+    background-color: color-mix(in oklch, var(--aag-navy) var(--glass-tint), transparent);
+    border-color: color-mix(in oklch, var(--aag-paper) var(--glass-edge), transparent);
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    backdrop-filter: blur(var(--glass-blur));
+  }
+
+  .site-header {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    transition-property: background-color, border-color, box-shadow, -webkit-backdrop-filter, backdrop-filter;
+    transition-duration: 250ms;
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .site-header[data-overlay="true"][data-scrolled="false"] {
+    --glass-tint: 38%;
+    --glass-blur: 10px;
+    --glass-edge: 6%;
+  }
+
+  .site-header[data-scrolled="true"] {
+    box-shadow: 0 18px 32px -28px color-mix(in oklch, var(--aag-ink) 80%, transparent);
+  }
+
+  .glass-sheet {
+    --glass-tint: 95%;
+  }
+
+  @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+    .glass-navy {
+      --glass-tint: 97%;
+    }
+
+    .site-header[data-overlay="true"][data-scrolled="false"] {
+      --glass-tint: 72%;
+    }
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .glass-navy,
+    .site-header[data-overlay="true"][data-scrolled="false"] {
+      --glass-tint: 100%;
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+  }
+}
+
 /* =========================================================================== */
 
 @layer base {
@@ -416,7 +623,7 @@
   }
 
   html {
-    @apply font-sans;
+    @apply font-body;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
   }
@@ -427,17 +634,32 @@
     text-rendering: optimizeLegibility;
   }
 
-  /* Display type is the serif, everywhere, without per-component opt-in. */
+  /* Headings take the serif without per-component opt-in, so a plain <h2>
+     is already right and a component only states `font-heading` where the
+     element is editorial but not a heading (a pull quote, a card title).
+     h4 is included for completeness; the site does not currently use one. */
   h1,
   h2,
-  h3 {
-    @apply font-display;
+  h3,
+  h4 {
+    @apply font-heading;
     font-variant-numeric: lining-nums proportional-nums;
   }
 
-  /* Figures line up in stat strips and any KES amount. */
+  /* Watch item, not a bug today: Merriweather's ascender-to-descender span is
+     about 1.26em, which is taller than the 1.2 line box the design system
+     specifies for h1. Overflow is visible by default, so a single-line
+     headline renders correctly and nothing clips. It does mean a headline
+     that WRAPS runs tight between lines. If that reads badly once the hero is
+     reviewed on a real phone, the fix is h1 line-height 1.25 here, not a
+     per-component padding reserve. */
+
+  /* Figures line up in stat strips and any KES amount. Numeric display runs
+     in the body face (Source Sans 3) per the type system, so this catches the
+     stat strip even though its markup is a <p>, not a <table>. */
   table,
   [data-numeric] {
+    @apply font-body;
     font-variant-numeric: tabular-nums lining-nums;
   }
 

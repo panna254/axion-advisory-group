@@ -40,8 +40,13 @@ Approach precede it.
 - Content column: `lg:col-span-8`
 
 ### Visual column
-- `aspect-[4/5] rounded-xl bg-muted overflow-hidden relative`, same placeholder treatment as the hero's visual slot until real photography exists — see `hero.spec.md`'s Design Specification for the exact placeholder rule (flat `bg-muted`, low-opacity mark, no stock substitute)
-- This slot is a portrait, specifically, once real content exists — a named individual, not an office exterior or a stock team photo, per the section's own framing as "who you are" rather than "what our building looks like"
+- `relative overflow-hidden rounded-xl bg-muted`, `aspect-[3/2]` while stacked, `lg:aspect-[4/5]` beside the content column.
+- **Image (2026-09-17):** `public/images/about.jpg`, client-supplied, 6016 x 4000 landscape, the hero's view of Nairobi at night. Passed as the `image` prop from `ABOUT_IMAGE` in `src/lib/site-content.ts`; alt text is `ABOUT-IMG-ALT`. This replaces the earlier intent of a portrait of a named individual, at the client's direction.
+  - `next/image` with `fill` and `object-cover`. Lazy (the default): the section is below the fold, so no `preload`.
+  - `lg:object-[62%_50%]`: the 4:5 crop keeps the middle 53% of the photograph's width, and 62% sets it on the lit towers.
+  - `sizes="(min-width: 1024px) 680px, 100vw"`. At lg the frame is at most 362 x 452px, but `object-cover` scales the 3:2 photograph to the frame's height, so it renders 452 x 1.5 = 678px wide. Sizing to the frame width (362px) made the browser fetch a 640px file and upscale it. Stacked, the 3:2 frame matches the photograph, so it renders at frame width.
+  - Why 3:2 when stacked: in a full-width 4:5 frame the photograph was 720 x 899px at 768px, mostly night sky, before the heading. At 3:2 it shows whole at 720 x 480px.
+- **Placeholder:** when `image` is omitted, the frame shows the low-opacity mark on flat `bg-muted`, per `hero.spec.md`'s placeholder rule. No stock substitute.
 
 ### Content column
 - `h2`: `text-h2 font-display font-normal text-foreground mb-md`
@@ -66,7 +71,7 @@ Covered above.
 
 ## Assets
 - Icons: `IconArrowRight` (`size="sm"`), one instance, on `ABOUT-CTA`
-- Image slots: one, 4:5 aspect ratio, portrait, visual column — placeholder until the client supplies real photography; see `hero.spec.md` for the shared placeholder treatment
+- Image slots: one, visual column. Filled by `public/images/about.jpg` (see Visual column); 3:2 stacked, 4:5 at lg.
 
 ## COPY
 
@@ -84,9 +89,9 @@ outside this spec's scope and belongs to routing, not to this component; both
 render identically.
 
 ## Responsive Behavior
-- **Desktop (1440px):** 4/8 split, portrait left, content right
-- **Tablet (768px):** columns stack — portrait **above** content (unlike the hero, where the visual sits below on mobile). About's portrait is a person, and leading with a face reads correctly for a biography section in a way it would not for the hero's abstract proposition.
-- **Mobile (390px):** same stacked order
+- **Desktop (1440px):** 4/8 split, image left at 4:5 (361 x 452px), content right
+- **Tablet (768px):** columns stack, image **above** content at 3:2 (720 x 480px)
+- **Mobile (390px):** same stacked order, image at 343 x 229px
 - **Breakpoint:** `lg` (1024px)
 
 ## CONTRAST CHECK

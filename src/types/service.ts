@@ -3,10 +3,6 @@ import type { ContentStatus } from "./content";
 /**
  * The seven practice lines, in the order `BRAND.md` lists them. The order is
  * the brand's, not a ranking, and components should not re-sort it.
- *
- * `legal-regulatory` is line seven and is `NEEDS-CLIENT-INPUT`: the name was
- * obscured in the source photo and is unconfirmed. It must not render until
- * the client confirms it.
  */
 export type ServiceSlug =
   | "business-consultancy"
@@ -46,7 +42,7 @@ export interface Service {
    * 60-90 words. Shown only once `PracticeLineRow`'s disclosure is expanded.
    */
   detail: string;
-  /** Governs whether this line may render at all. Line seven is blocked. */
+  /** Governs whether this line may render at all. */
   status: ContentStatus;
   /** Anchor or route for the practice line. */
   href: string;

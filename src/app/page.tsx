@@ -8,21 +8,31 @@ import { ClosingCta } from "@/components/sections/closing-cta";
 import { Contact } from "@/components/sections/contact";
 import { Credibility } from "@/components/sections/credibility";
 import { Hero } from "@/components/sections/hero";
+import { MissionVisionValues } from "@/components/sections/mission-vision-values";
 import { ProofSection } from "@/components/sections/proof-section";
 import { ServicesSection } from "@/components/sections/services-section";
-import { getHomepageContent } from "@/lib/mock-content";
+import {
+  ABOUT_BODY,
+  ABOUT_IMAGE,
+  APPROACH_CLOSING_NOTE,
+  CONTACT_DETAILS,
+  COOKIE_NOTICE,
+  CORE_VALUES,
+  CREDIBILITY_CERTIFICATIONS,
+  CREDIBILITY_STATS,
+  FOOTER_DETAILS,
+  MISSION,
+  TESTIMONIALS,
+  VISION,
+} from "@/lib/site-content";
 
 /**
  * Axion Advisory Group — Homepage.
  *
  * Built strictly against `HOMEPAGE_RHYTHM` (src/types/section.ts) and the
- * content register in `CONTENT.md`.
- *
- * Consumes `getHomepageContent()` adapter:
- * - In "mock" mode (default for evaluation): Gated sections are populated with
- *   centralized demonstration data to evaluate full visual and interactive rhythm.
- * - In "production" mode: Unverified fields remain undefined, gracefully activating
- *   existing component gating (`null` returns, disabled form, etc.).
+ * content register in `CONTENT.md`. Business information comes from
+ * `src/lib/site-content.ts`; a section whose props are left undefined keeps
+ * its own gating (`null` returns, disabled form, etc.).
  *
  * Sequence:
  *   Top Sentinel (inside SiteHeader)
@@ -41,6 +51,8 @@ import { getHomepageContent } from "@/lib/mock-content";
  *   ↓
  *   Credibility
  *   ↓
+ *   Mission, Vision & Values
+ *   ↓
  *   Proof
  *   ↓
  *   Closing CTA
@@ -50,57 +62,34 @@ import { getHomepageContent } from "@/lib/mock-content";
  *   Footer
  */
 export default function Home() {
-  const content = getHomepageContent();
-
   return (
     <>
-      {content.isMock && (
-        <aside
-          role="status"
-          aria-label="Demonstration mode notice"
-          className="border-b border-border bg-muted/80 px-md py-xs text-center text-caption font-sans text-muted-foreground"
-        >
-          <span className="font-medium text-foreground">Demonstration Mode:</span>{" "}
-          Displaying centralized mock data for layout &amp; interaction evaluation. Real client claims remain gated.
-        </aside>
-      )}
-
-      <SiteHeader />
+      <SiteHeader overlay />
       <main id="main-content" className="flex-1">
         <Hero />
         <BuyerFork />
-        <ServicesSection servicesBySlug={content.servicesBySlug} />
-        <Approach closingNote={content.approach.closingNote} />
+        <ServicesSection />
+        <Approach closingNote={APPROACH_CLOSING_NOTE} />
         <About
-          bodyOne={content.about.bodyOne}
-          bodyTwo={content.about.bodyTwo}
+          image={ABOUT_IMAGE}
+          bodyOne={ABOUT_BODY.bodyOne}
+          bodyTwo={ABOUT_BODY.bodyTwo}
         />
         <Credibility
-          stats={content.credibility.stats}
-          certifications={content.credibility.certifications}
+          stats={CREDIBILITY_STATS}
+          certifications={CREDIBILITY_CERTIFICATIONS}
         />
-        <ProofSection
-          caseStudy={content.proof.caseStudy}
-          testimonial={content.proof.testimonial}
+        <MissionVisionValues
+          mission={MISSION}
+          vision={VISION}
+          values={CORE_VALUES}
         />
+        <ProofSection testimonials={TESTIMONIALS} />
         <ClosingCta />
-        <Contact
-          address={content.contact.address}
-          phone={content.contact.phone}
-          hours={content.contact.hours}
-          consentText={content.contact.consentText}
-          slaText={content.contact.slaText}
-        />
+        <Contact {...CONTACT_DETAILS} />
       </main>
-      <SiteFooter
-        address={content.footer.address}
-        phone={content.footer.phone}
-        email={content.footer.email}
-        registrationNumber={content.footer.registrationNumber}
-        entityName={content.footer.entityName}
-        copyrightYear={content.footer.copyrightYear}
-      />
-      <CookieBanner notice={content.cookieNotice} />
+      <SiteFooter {...FOOTER_DETAILS} />
+      <CookieBanner notice={COOKIE_NOTICE} />
     </>
   );
 }

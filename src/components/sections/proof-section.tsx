@@ -1,5 +1,7 @@
-import { CaseStudyCard } from "./case-study-card";
-import { TestimonialQuote } from "./testimonial-quote";
+import type { Testimonial } from "@/types/testimonial";
+
+import { TestimonialCarousel } from "./testimonial-carousel";
+import { isRenderableTestimonial } from "./testimonial-quote";
 
 /**
  * ProofSection — Section 8, "Client work".
@@ -7,68 +9,40 @@ import { TestimonialQuote } from "./testimonial-quote";
  * Implements `docs/research/components/proof-section.spec.md`.
  * Renders as the page's single mid-page navy band (`.band-navy py-band-anchor`).
  *
- * Fully gated: returns `null` when neither a case study nor a testimonial is
- * supplied with valid, confirmed client data. Never fabricates placeholders.
+ * One content type: the testimonial carousel. The static case-study card that
+ * used to sit above it was removed on 2026-09-16, so the band presents client
+ * proof in one consistent format rather than a fixed block over a rotating one.
+ *
+ * Fully gated: returns `null` when no testimonial is supplied with valid
+ * client data. Never fabricates placeholders.
+ *
+ * Stays a Server Component. Only the carousel needs state, and it opens its
+ * own client boundary, so the heading is still server-rendered.
  */
 
 export interface ProofSectionProps {
-  caseStudy?: {
-    client: string;
-    sector: string;
-    problem: string;
-    outcome: string;
-  };
-  testimonial?: {
-    quote: string;
-    name: string;
-    role: string;
-  };
+  testimonials?: readonly Testimonial[];
 }
 
-export function ProofSection({
-  caseStudy,
-  testimonial,
-}: ProofSectionProps = {}) {
-  const hasValidCaseStudy = Boolean(
-    caseStudy?.client &&
-      caseStudy?.sector &&
-      caseStudy?.problem &&
-      caseStudy?.outcome
+export function ProofSection({ testimonials }: ProofSectionProps = {}) {
+  const renderableTestimonials = (testimonials ?? []).filter(
+    isRenderableTestimonial
   );
 
-  const hasValidTestimonial = Boolean(
-    testimonial?.quote && testimonial?.name && testimonial?.role
-  );
-
-  if (!hasValidCaseStudy && !hasValidTestimonial) {
+  if (renderableTestimonials.length === 0) {
     return null;
   }
 
   return (
     <section id="proof" className="band-navy bg-background py-band-anchor">
       <div className="max-w-page mx-auto px-md">
-        <h2 className="mb-xl text-center text-h2 font-display font-normal text-foreground">
+        <h2 className="mb-xl text-center text-h2 font-heading text-foreground">
           Client work
         </h2>
-        <div className="mx-auto flex max-w-[52rem] flex-col gap-2xl">
-          {hasValidCaseStudy && caseStudy && (
-            <CaseStudyCard
-              client={caseStudy.client}
-              sector={caseStudy.sector}
-              problem={caseStudy.problem}
-              outcome={caseStudy.outcome}
-            />
-          )}
-          {hasValidTestimonial && testimonial && (
-            <TestimonialQuote
-              quote={testimonial.quote}
-              name={testimonial.name}
-              role={testimonial.role}
-            />
-          )}
+        <div className="mx-auto flex max-w-[52rem] flex-col gap-lg">
+          <TestimonialCarousel testimonials={renderableTestimonials} />
         </div>
       </div>
     </section>
   );
 }
-

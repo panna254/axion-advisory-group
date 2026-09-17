@@ -31,7 +31,7 @@ export function CookieBanner({ notice }: CookieBannerProps) {
       )}
     >
       <div className="max-w-page mx-auto flex flex-col items-start justify-between gap-md sm:flex-row sm:items-center">
-        <p className="text-caption text-muted-foreground max-w-prose">
+        <p className="text-small text-muted-foreground max-w-prose">
           {notice}
         </p>
         <button
@@ -39,7 +39,7 @@ export function CookieBanner({ notice }: CookieBannerProps) {
           onClick={() => setDismissed(true)}
           className={cn(
             "inline-flex items-center gap-2xs rounded-lg border border-stroke-systems px-md py-xs",
-            "text-caption font-sans font-medium text-foreground whitespace-nowrap",
+            "text-small font-body font-medium text-foreground whitespace-nowrap",
             "transition-colors duration-200 hover:bg-muted active:translate-y-px",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           )}

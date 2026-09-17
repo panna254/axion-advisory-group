@@ -68,7 +68,7 @@ const LOCKUP_MARK_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12
    user-agent is what makes the Google Fonts CSS API serve .ttf.
 --------------------------------------------------------------------------- */
 const FONT_CSS_URL =
-  "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&family=Inter:wght@400&display=swap";
+  "https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&display=swap";
 
 async function loadFonts() {
   const css = await fetch(FONT_CSS_URL, {
@@ -76,8 +76,8 @@ async function loadFonts() {
   }).then((r) => r.text());
 
   const faces = [...css.matchAll(/font-family: '([^']+)';[\s\S]*?font-weight: (\d+);[\s\S]*?src: url\(([^)]+)\)/g)];
-  if (faces.length < 3) {
-    throw new Error(`Expected 3 font faces from Google Fonts, parsed ${faces.length}`);
+  if (faces.length < 2) {
+    throw new Error(`Expected 2 font faces from Google Fonts, parsed ${faces.length}`);
   }
 
   return Promise.all(
@@ -124,8 +124,8 @@ function ogElement() {
         "div",
         {
           style: {
-            fontFamily: "Space Grotesk",
-            fontWeight: 400,
+            fontFamily: "Source Sans 3",
+            fontWeight: 600,
             fontSize: 120,
             letterSpacing: "0.1em",
             color: CYAN,
@@ -141,7 +141,7 @@ function ogElement() {
       {
         style: {
           marginTop: "44px",
-          fontFamily: "Space Grotesk",
+          fontFamily: "Source Sans 3",
           fontWeight: 600,
           fontSize: 40,
           letterSpacing: "0.14em",
@@ -166,7 +166,7 @@ function ogElement() {
       {
         style: {
           marginTop: "28px",
-          fontFamily: "Inter",
+          fontFamily: "Source Sans 3",
           fontWeight: 400,
           fontSize: 30,
           color: MUTED_ON_NAVY,

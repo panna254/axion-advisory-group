@@ -3,7 +3,6 @@
 import { useId, useState } from "react";
 
 import { IconCaretDown } from "@/components/icons";
-import { SERVICE_ICONS } from "@/lib/services-data";
 import { cn } from "@/lib/utils";
 import type { Service } from "@/types/service";
 
@@ -12,9 +11,12 @@ interface PracticeLineRowProps {
 }
 
 /**
- * One practice line inside a `ClusterCard`: icon, name, and a one-sentence
- * summary, collapsed by default. The whole row is the disclosure trigger —
- * clicking (or Enter/Space) reveals `service.detail` underneath.
+ * One practice line inside a `ClusterRow`: name and a one-sentence summary,
+ * collapsed by default. The whole row is the disclosure trigger — clicking
+ * (or Enter/Space) reveals `service.detail` underneath.
+ *
+ * No icon. The name is the client's own and already says what the line is;
+ * a glyph beside it only repeated that, and cost a column of width on phones.
  *
  * Height is animated with the CSS grid `0fr` -> `1fr` trick rather than
  * `max-height`, so the transition tracks the detail text's real height at
@@ -25,7 +27,6 @@ interface PracticeLineRowProps {
 export function PracticeLineRow({ service }: PracticeLineRowProps) {
   const [expanded, setExpanded] = useState(false);
   const detailId = useId();
-  const Icon = SERVICE_ICONS[service.slug];
 
   return (
     <li>
@@ -34,23 +35,20 @@ export function PracticeLineRow({ service }: PracticeLineRowProps) {
         aria-expanded={expanded}
         aria-controls={detailId}
         onClick={() => setExpanded((prev) => !prev)}
-        className={cn(
-          "w-full flex items-start gap-sm text-left rounded-lg p-xs -mx-xs",
-          "transition-colors duration-200 hover:bg-muted active:bg-secondary",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-        )}
+        className="group flex w-full items-start gap-md rounded-sm text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
       >
-        <Icon size="md" className="shrink-0 text-stroke-systems" />
-        <div className="min-w-0 flex-1">
-          <p className="font-sans font-semibold text-body text-foreground">
+        <span className="min-w-0 flex-1">
+          <span className="block text-lead font-medium text-foreground transition-colors duration-200 group-hover:text-action-text">
             {service.name}
-          </p>
-          <p className="text-body text-muted-foreground">{service.summary}</p>
-        </div>
+          </span>
+          <span className="mt-2xs block text-pretty text-body text-muted-foreground">
+            {service.summary}
+          </span>
+        </span>
         <IconCaretDown
           size="sm"
           className={cn(
-            "shrink-0 text-muted-foreground transition-transform duration-200",
+            "mt-1 shrink-0 text-muted-foreground transition-[transform,color] duration-200 group-hover:text-action-text",
             expanded && "rotate-180",
           )}
         />
@@ -65,7 +63,7 @@ export function PracticeLineRow({ service }: PracticeLineRowProps) {
         <div className="overflow-hidden">
           <p
             aria-hidden={!expanded}
-            className="pt-2xs pr-xs pb-xs pl-[2.75rem] text-body text-muted-foreground"
+            className="pt-sm pr-[calc(var(--spacing-md)+1.25rem)] text-pretty text-body text-foreground"
           >
             {service.detail}
           </p>

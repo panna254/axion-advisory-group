@@ -1,27 +1,19 @@
 import type { Icon as PhosphorIcon } from "@phosphor-icons/react/dist/lib/types";
 import {
+  ArrowLeftIcon,
   ArrowRightIcon,
   ArrowUpRightIcon,
   CaretDownIcon,
-  ChartLineUpIcon,
   CheckIcon,
   CircleNotchIcon,
   ClockIcon,
   EnvelopeIcon,
-  GaugeIcon,
-  GlobeHemisphereEastIcon,
-  HandCoinsIcon,
   ListIcon,
   MapPinIcon,
   PhoneIcon,
-  ScalesIcon,
-  StrategyIcon,
-  UsersThreeIcon,
   WarningCircleIcon,
   XIcon,
 } from "@phosphor-icons/react/ssr";
-
-import type { ServiceSlug } from "@/types/service";
 
 /* ---------------------------------------------------------------------------
    Icons.
@@ -55,7 +47,7 @@ const ICON_WEIGHT = "regular" as const;
  *
  *   sm  20  inline with body text, form field adornments
  *   md  24  list rows, contact details, buttons
- *   lg  32  service cards, the one-per-section feature glyph
+ *   lg  32  the one-per-section feature glyph
  */
 export const ICON_SIZE = { sm: 20, md: 24, lg: 32 } as const;
 
@@ -93,54 +85,9 @@ function lockIcon(Base: PhosphorIcon, displayName: string) {
 
 export type IconComponent = ReturnType<typeof lockIcon>;
 
-/* --- Service line icons ---------------------------------------------------
-   One per practice line, chosen for distinct silhouettes rather than for the
-   most literal match. At 32px in a grid, seven glyphs that all reduce to a
-   circle are unreadable as a set, so the row runs: board, line chart, people,
-   hand, dial, globe, beam.
-
-   Two deliberate choices worth recording:
-
-   Risk Management is a gauge, not a shield. A shield glyph sitting in cyan
-   next to the identity, whose mark is two arch forms, muddies the mark. A dial
-   also says the truer thing: risk work here is assessment and measurement.
-
-   Market Entry is the eastern hemisphere, which puts Kenya in the glyph.
---------------------------------------------------------------------------- */
-
-export const IconBusinessConsultancy = lockIcon(
-  StrategyIcon,
-  "IconBusinessConsultancy",
-);
-export const IconFinancialManagement = lockIcon(
-  ChartLineUpIcon,
-  "IconFinancialManagement",
-);
-export const IconTrainingHr = lockIcon(UsersThreeIcon, "IconTrainingHr");
-export const IconLoansFinancing = lockIcon(HandCoinsIcon, "IconLoansFinancing");
-export const IconRiskManagement = lockIcon(GaugeIcon, "IconRiskManagement");
-export const IconMarketEntry = lockIcon(
-  GlobeHemisphereEastIcon,
-  "IconMarketEntry",
-);
-export const IconLegalRegulatory = lockIcon(ScalesIcon, "IconLegalRegulatory");
-
-/**
- * Practice line to glyph. Keyed by `ServiceSlug`, so adding an eighth line is
- * a type error here until it has an icon rather than a silent gap in the grid.
- */
-export const SERVICE_ICONS: Record<ServiceSlug, IconComponent> = {
-  "business-consultancy": IconBusinessConsultancy,
-  "financial-management": IconFinancialManagement,
-  "training-hr": IconTrainingHr,
-  "loans-financing": IconLoansFinancing,
-  "risk-management": IconRiskManagement,
-  "market-entry": IconMarketEntry,
-  "legal-regulatory": IconLegalRegulatory,
-};
-
 /* --- Interface icons ---------------------------------------------------- */
 
+export const IconArrowLeft = lockIcon(ArrowLeftIcon, "IconArrowLeft");
 export const IconArrowRight = lockIcon(ArrowRightIcon, "IconArrowRight");
 export const IconArrowUpRight = lockIcon(ArrowUpRightIcon, "IconArrowUpRight");
 export const IconCaretDown = lockIcon(CaretDownIcon, "IconCaretDown");

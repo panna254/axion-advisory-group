@@ -6,6 +6,14 @@ export type {
 } from "./content";
 export { isPublishable } from "./content";
 
+export type {
+  ApproachPhase,
+  ApproachPhaseSlug,
+  ApproachStage,
+} from "./approach";
+
+export type { CoreValue } from "./core-value";
+
 export type { NavCta, NavItem } from "./navigation";
 
 export type {
@@ -23,4 +31,4 @@ export type { Certification, StatItem } from "./stat";
 
 export type { TeamMember } from "./team";
 
-export type { CaseStudy, Testimonial } from "./testimonial";
+export type { Testimonial, TestimonialCategory } from "./testimonial";
