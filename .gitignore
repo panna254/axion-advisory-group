@@ -52,3 +52,6 @@ temp/
 
 # MCP session artefacts
 .playwright-mcp/
+
+# Claude Code generated worktrees
+.claude/worktrees/
